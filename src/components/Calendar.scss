@@ -1,0 +1,69 @@
+.calendar {
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   width: 100vw;
+
+   &__body {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+   }
+
+   &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20%;
+      align-items: center;
+      margin-bottom: 1rem;
+   }
+
+   &__current-month {
+      display: inline-block;
+   }
+
+   &__month-next {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.8rem;
+   }
+
+   &__month-prior {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.8rem;
+   }
+
+   &__header-days {
+      display: flex;
+   }
+
+   &__header-day {
+      font-style: italic;
+      padding: 1.3rem 2rem;
+   }
+
+   &__day {
+      border: 1px solid lightsteelblue;
+      padding: 2rem;
+      font-size: 1.4rem;
+   
+      &:hover {
+         border: 1px solid red;
+         border-radius: 4px;
+      }
+   
+      &--today {
+         border: 1px solid black;
+         border-radius: 4px;
+      }
+   
+   }
+
+   &__date {
+      position: relative;
+      font-style: italic;
+      bottom: 1.8rem;
+      left: 1.8rem;
+   }
+}
