@@ -2,7 +2,6 @@
    text-align: center;
    display: flex;
    flex-direction: column;
-   width: 100vw;
 
    &__body {
       display: flex;
@@ -13,7 +12,7 @@
    &__header {
       display: flex;
       justify-content: space-between;
-      padding: 0 20%;
+      padding: 0 15%;
       align-items: center;
       margin-bottom: 1rem;
    }
@@ -40,13 +39,13 @@
 
    &__header-day {
       font-style: italic;
-      padding: 1.3rem 2rem;
+      padding: 1.3rem;
    }
 
    &__day {
       border: 1px solid lightsteelblue;
-      padding: 2rem;
-      font-size: 1.4rem;
+      padding: 1.4rem;
+      font-size: 1.2rem;
    
       &:hover {
          border: 1px solid red;
@@ -63,7 +62,7 @@
    &__date {
       position: relative;
       font-style: italic;
-      bottom: 1.8rem;
-      left: 1.8rem;
+      bottom: 1.2rem;
+      left: 1rem;
    }
 }

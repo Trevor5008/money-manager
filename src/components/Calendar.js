@@ -56,6 +56,8 @@ function Calendar({ year, month, today }) {
       }
    }
 
+   console.log(today)
+
    return (
       <section className='calendar'>
          <div className="calendar__header">
@@ -86,10 +88,10 @@ function Calendar({ year, month, today }) {
                            key={day?.date?.format('YYYY-MM-DD') || Math.random()}
                            className=
                            {`calendar__day${date === today 
-                              && currentYear === year
+                              && currentYear === year && currentMonth === month
                               ?' calendar__day--today' : ''}`}
                         >
-                           <small className='calendar__date'>{day?.day}</small>
+                           <small className='calendar__date'>{date}</small>
                         </td>;
                      })}
                   </tr>
