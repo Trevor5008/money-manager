@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Calendar from '../components/Calendar';
+import Calendar from '../frontend/components/Calendar';
 import styles from '@/styles/Home.module.scss';
 
 export default function Home() {

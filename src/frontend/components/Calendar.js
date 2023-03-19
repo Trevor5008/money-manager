@@ -21,7 +21,6 @@ function Calendar({ year, month, today }) {
       for (let i = 0; i < startDay; i++) {
          days.unshift(null);
       }
-
       return days;
    }
 
@@ -55,8 +54,6 @@ function Calendar({ year, month, today }) {
          setCurrentMonth(currentMonth + 1);
       }
    }
-
-   console.log(today)
 
    return (
       <section className='calendar'>
