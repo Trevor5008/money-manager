@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import NavBar from '@/frontend/components/NavBar/NavBar';
 import Calendar from '../frontend/components/Calendar/Calendar';
+import Accounts from '../pages/Accounts/Accounts';
 import styles from '@/styles/Home.module.scss';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export default function Home() {
    const time = Date.now();
@@ -10,6 +11,8 @@ export default function Home() {
    const year = date.getFullYear();
    const month = date.getMonth() + 1;
    const today = date.getDate();
+   const router = useRouter();
+   const currentPath = router.pathname;
 
    return (
       <>
@@ -19,13 +22,10 @@ export default function Home() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/money-mgr-favicon.ico" />
          </Head>
-         <NavBar />
          <main className={styles.main}>
-            <Router>
-               <Routes>
-                  <Route path="/" element={<Calendar year={year} month={month} today={today} />} />
-               </Routes>
-            </Router>
+            {currentPath === '/' && <Calendar year={year} month={month} today={today}/>}
+            {currentPath === '/about' && <About />}
+            {currentPath === '/accounts' && <Accounts />}
          </main>
       </>
    )
