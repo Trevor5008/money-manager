@@ -1,6 +1,8 @@
 import Head from 'next/head'
-import Calendar from '../frontend/components/Calendar';
+import NavBar from '@/frontend/components/NavBar/NavBar';
+import Calendar from '../frontend/components/Calendar/Calendar';
 import styles from '@/styles/Home.module.scss';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 export default function Home() {
    const time = Date.now();
@@ -17,8 +19,13 @@ export default function Home() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/money-mgr-favicon.ico" />
          </Head>
+         <NavBar />
          <main className={styles.main}>
-            <Calendar year={year} month={month} today={today} />
+            <Router>
+               <Routes>
+                  <Route path="/" element={<Calendar year={year} month={month} today={today} />} />
+               </Routes>
+            </Router>
          </main>
       </>
    )
