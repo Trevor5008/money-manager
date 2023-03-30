@@ -26,6 +26,7 @@ function Calendar({ year, month, today }) {
 
    const weeks = [];
    let week = [];
+   
    days.forEach((day) => {
       week.push(day);
       if (week.length === 7) {

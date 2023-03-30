@@ -9,9 +9,9 @@ export default function App({ Component, pageProps }) {
    useEffect(() => setRender(true), []);
    if (typeof window === 'undefined') return null;
   return render ? (
-   <body>
+   <>
       <NavBar />
       <Component {...pageProps} />
-   </body>
+   </>
   ) : null;
 }

@@ -2,11 +2,13 @@
    text-align: center;
    display: flex;
    flex-direction: column;
+   margin-top: 2rem;
 
    &__body {
       display: flex;
       flex-direction: column;
       width: 100%;
+      align-items: center;
    }
 
    &__header {
@@ -18,18 +20,18 @@
    }
 
    &__current-month {
-      display: inline-block;
+      display: inline-flex;
    }
 
    &__month-next {
       cursor: pointer;
-      display: inline-block;
+      display: inline-flex;
       font-size: 1.8rem;
    }
 
    &__month-prior {
       cursor: pointer;
-      display: inline-block;
+      display: inline-flex;
       font-size: 1.8rem;
    }
 
@@ -40,12 +42,16 @@
    &__header-day {
       font-style: italic;
       padding: 1.3rem;
+      width: 13vw;
+      min-width: 4.5rem;
    }
 
    &__day {
       border: 1px solid lightsteelblue;
       padding: 1.4rem;
       font-size: 1.2rem;
+      width: 13vw;
+      height: 13vw;
    
       &:hover {
          border: 1px solid red;
