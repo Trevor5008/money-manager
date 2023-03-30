@@ -1,16 +1,11 @@
 import Head from 'next/head'
 import NavBar from '@/frontend/components/NavBar/NavBar';
-import Calendar from '../frontend/components/Calendar/Calendar';
+import Dashboard from '../pages/Dashboard/Dashboard';
 import Accounts from '../pages/Accounts/Accounts';
 import styles from '@/styles/Home.module.scss';
 import { useRouter } from 'next/router';
 
 export default function Home() {
-   const time = Date.now();
-   const date = new Date(time);
-   const year = date.getFullYear();
-   const month = date.getMonth() + 1;
-   const today = date.getDate();
    const router = useRouter();
    const currentPath = router.pathname;
 
@@ -23,7 +18,7 @@ export default function Home() {
             <link rel="icon" href="/money-mgr-favicon.ico" />
          </Head>
          <main className={styles.main}>
-            {currentPath === '/' && <Calendar year={year} month={month} today={today}/>}
+            {currentPath === '/' && <Dashboard />}
             {currentPath === '/about' && <About />}
             {currentPath === '/accounts' && <Accounts />}
          </main>

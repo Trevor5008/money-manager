@@ -9,6 +9,8 @@
       flex-direction: column;
       width: 100%;
       align-items: center;
+      margin: 0 auto;
+      max-width: 0 auto;
    }
 
    &__header {
@@ -16,11 +18,13 @@
       justify-content: space-between;
       padding: 0 15%;
       align-items: center;
-      margin-bottom: 1rem;
+      margin: 0 auto;
+      max-width: 60rem;
    }
 
    &__current-month {
       display: inline-flex;
+      margin: 0 10vw;
    }
 
    &__month-next {
