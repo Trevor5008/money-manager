@@ -6,6 +6,7 @@ import Head from 'next/head';
 import NavBar from '../frontend/components/NavBar/NavBar';
 import '@/styles/globals.scss';
 import '../frontend/components/NavBar/NavBar.scss';
+import '../frontend/components/ThemeSwitch/ThemeSwitch.scss';
 
 export default function App({ Component, pageProps }) {
    const [render, setRender] = useState(false);

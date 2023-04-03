@@ -50,6 +50,6 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 
  export default function ThemeSwitch({ handleSwitch }) {
    return (
-      <StyledSwitch onClick={handleSwitch}/>
+      <StyledSwitch className="theme-switch" onClick={handleSwitch}/>
    )
  };
