@@ -1,15 +1,35 @@
 import { useEffect, useState } from 'react';
+import { createTheme } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
 import Head from 'next/head';
 import NavBar from '../frontend/components/NavBar/NavBar';
 import '@/styles/globals.scss';
-import '../frontend/components/Calendar/Calendar.scss';
-import '../pages/Dashboard/Dashboard.scss';
 import '../frontend/components/NavBar/NavBar.scss';
 
 export default function App({ Component, pageProps }) {
    const [render, setRender] = useState(false);
+   const [colorTheme, setColorTheme] = useState('light');
+
+   const theme = createTheme({
+      palette: {
+         mode: colorTheme
+      },
+      typography: {
+
+      }
+   });
+
    useEffect(() => setRender(true), []);
+   
    if (typeof window === 'undefined') return null;
+
+   const handleSwitch = () => {
+      const newColorTheme = 
+         colorTheme === 'light' ? 'dark' : 'light';
+      setColorTheme(newColorTheme);
+   }
+
    return render ? (
       <>
          <Head>
@@ -18,8 +38,11 @@ export default function App({ Component, pageProps }) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/money-mgr-favicon.ico" />
          </Head>
-         <NavBar />
-         <Component {...pageProps} />
+         <ThemeProvider theme={theme} >
+            <CssBaseline />
+            <NavBar handleSwitch={handleSwitch}/>
+            <Component {...pageProps} />
+         </ThemeProvider>
       </>
    ) : null;
 }

@@ -1,7 +1,6 @@
-import Dashboard from '../pages/Dashboard/Dashboard';
-import About from '../pages/about';
+import Landing from './landing';
+import About from './about';
 import Accounts from './accounts';
-import styles from '@/styles/Home.module.scss';
 import { useRouter } from 'next/router';
 
 export default function Home() {
@@ -9,8 +8,8 @@ export default function Home() {
    const currentPath = router.pathname;
 
    return (
-         <main className={styles.main}>
-            {currentPath === '/' && <Dashboard />}
+         <main>
+            {currentPath === '/' && <Landing />}
             {currentPath === '/about' && <About />}
             {currentPath === '/accounts' && <Accounts />}
          </main>

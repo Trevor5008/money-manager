@@ -1,6 +1,6 @@
-import Calendar from '../../frontend/components/Calendar/Calendar';
+import Calendar from '../frontend/components/Calendar/Calendar';
 
-export default function Dashboard() {
+export default function Landing() {
    const time = Date.now();
    const date = new Date(time);
    const year = date.getFullYear();
