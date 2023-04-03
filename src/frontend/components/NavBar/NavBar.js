@@ -81,7 +81,7 @@ export default function NavBar({ handleSwitch }) {
                      }}
                   >
                      {pages.map((page) => {
-                        const path = page !== 'landing' 
+                        const path = page !== 'home' 
                             ? `/${page}` : '/';
                         return (
                            <MenuItem key={page} onClick={handleCloseNavMenu}>

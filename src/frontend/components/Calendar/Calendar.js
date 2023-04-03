@@ -1,102 +1,40 @@
-import { useState } from 'react';
-import dayjs from 'dayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import Badge from '@mui/material/Badge';
 
-function Calendar({ year, month, today }) {
-   const [ currentYear, setCurrentYear ] = useState(year);
-   const [ currentMonth, setCurrentMonth ] = useState(month);
-   const days = getDaysInMonth(currentYear, currentMonth);
+function ServerDay(props) {
+   const { day, ...other } = props;
 
-   function getDaysInMonth(year, month) {
-      const daysInMonth = dayjs(`${year}-${month}-01`).daysInMonth();
-      const startDay = dayjs(`${year}-${month}-01`).day();
-      const days = [];
-
-      for (let i = 1; i <= daysInMonth; i++) {
-         days.push({
-            day: i,
-            date: dayjs(`${year}-${month}-${i}`),
-         });
-      }
-
-      for (let i = 0; i < startDay; i++) {
-         days.unshift(null);
-      }
-      return days;
+   function handleClick(e) {
+      console.log(props)
    }
-
-   const weeks = [];
-   let week = [];
-   
-   days.forEach((day) => {
-      week.push(day);
-      if (week.length === 7) {
-         weeks.push(week);
-         week = [];
-      }
-   });
-   if (week.length > 0) {
-      weeks.push(week);
-   }
-
-   const priorMonth = () => {
-      if (currentMonth === 0) {
-         setCurrentMonth(11);
-         setCurrentYear(currentYear - 1);
-      } else {
-         setCurrentMonth(currentMonth - 1);
-      }
-   }
-
-   const nextMonth = () => {
-      if (currentMonth === 11) {
-         setCurrentYear(currentYear + 1);
-         setCurrentMonth(0);
-      } else {
-         setCurrentMonth(currentMonth + 1);
-      }
-   }
-
    return (
-      <section className='calendar'>
-         <div className="calendar__header">
-               <p 
-                  className='calendar__month-prior'
-                  onClick={priorMonth}>{"< "}&nbsp;&nbsp;</p>
-            <h2 className="calendar__current-month">
-               {dayjs(`${currentYear}-${currentMonth}-01`).format('MMMM YYYY')}
-            </h2>
-               <p 
-                  className='calendar__month-next'
-                  onClick={nextMonth}>&nbsp;&nbsp;{" >"}</p>
-         </div>
-         <table className="calendar__body">
-            <thead>
-               <tr className="calendar__header-days">
-                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                     <td key={day} className='calendar__header-day'>{day}</td>
-                  ))}
-               </tr>
-            </thead>
-            <tbody>
-               {weeks.map((week) => (
-                  <tr key={week[0]?.date?.format('YYYY-MM-DD') || Math.random()} className="calendar__week">
-                     {week.map((day) => {
-                        const date = day && day.day;
-                        return <td
-                           key={day?.date?.format('YYYY-MM-DD') || Math.random()}
-                           className=
-                           {`calendar__day${date === today 
-                              && currentYear === year && currentMonth === month
-                              ?' calendar__day--today' : ''}`}
-                        >
-                           <small className='calendar__date'>{date}</small>
-                        </td>;
-                     })}
-                  </tr>
-               ))}
-            </tbody>
-         </table>
-      </section>
+      <Badge
+         className="calendar__date--event"
+         key={props.day.toString()}
+         overlap="circular"
+         badgeContent={'🌚'}
+      >
+         <PickersDay {...other} day={day} onClick={(e) => handleClick(e)}/>
+      </Badge>
+   )
+}
+;
+function Calendar() {
+   return (
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+         <DateCalendar 
+            className="calendar"
+            showDaysOutsideCurrentMonth
+            renderLoading={() => <DayCalendarSkeleton />}
+            slots={{
+               day: ServerDay
+            }}
+         />
+      </LocalizationProvider>
    );
 }
 

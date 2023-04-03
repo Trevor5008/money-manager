@@ -1,26 +1,20 @@
 import Calendar from '../frontend/components/Calendar/Calendar';
 
-export default function Landing() {
-   const time = Date.now();
-   const date = new Date(time);
-   const year = date.getFullYear();
-   const month = date.getMonth() + 1;
-   const today = date.getDate();
-
+export default function Landing({ userData }) {
    return (
       <section className='dashboard'>
-         <Calendar year={year} month={month} today={today}/>
+         <Calendar />
          <div className='dashboard__transactions'>
             <div className="dashboard__transaction-category">
                <h2 className='dashboard__transaction-header'>Expenses</h2>
                <ul className="dashboard__transaction-body">
-                  <li>Home Repairs $1100.00</li>
+                  <li>{userData.expenses.name} ${userData.expenses.amount}</li>
                </ul>
             </div>
             <div className="dashboard__transaction-category">
                <h2 className='dashboard__transaction-header'>Income</h2>
                <ul className="dashboard__transaction-body">
-                  <li>Rideshare $200.00</li>
+                  <li>{userData.income.name} ${userData.income.amount}</li>
                </ul>
             </div>
          </div>
