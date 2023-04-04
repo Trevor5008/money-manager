@@ -4,9 +4,9 @@ import Router from 'next/router';
 
 export async function getServerSideProps(ctx) {
 
-   //   const { userId } = ctx.query;
+   const { userId } = ctx.query;
    const res =
-      await fetch(`http://localhost:3000/api/get_user/2`);
+      await fetch(`http://localhost:3000/api/accounts/${userId}`);
 
    const userData = await res.json();
 

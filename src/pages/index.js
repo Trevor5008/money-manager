@@ -1,6 +1,6 @@
 import Landing from './landing';
 import About from './about';
-import Accounts from './accounts';
+import Accounts from './accounts/[userId]';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 

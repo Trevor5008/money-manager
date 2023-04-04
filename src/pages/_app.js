@@ -11,6 +11,7 @@ import '../frontend/components/ThemeSwitch/ThemeSwitch.scss';
 export default function App({ Component, pageProps }) {
    const [render, setRender] = useState(false);
    const [colorTheme, setColorTheme] = useState('light');
+   const [userId, setUserId] = useState(1);
 
    const theme = createTheme({
       palette: {
@@ -41,7 +42,10 @@ export default function App({ Component, pageProps }) {
          </Head>
          <ThemeProvider theme={theme} >
             <CssBaseline />
-            <NavBar handleSwitch={handleSwitch}/>
+            <NavBar
+               userId={userId} 
+               handleSwitch={handleSwitch}
+            />
             <Component {...pageProps} />
          </ThemeProvider>
       </>

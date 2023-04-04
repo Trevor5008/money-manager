@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
-import Link from 'next/Link';
+import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,26 +14,33 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['home', 'accounts', 'about'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pagesObj = {
+   'home': 'Home',
+   'accounts': 'Accounts',
+   'our_team': 'Our Team',
+   'contact_us': 'Contact Us',
+   'support': 'Support'
+};
 
-export default function NavBar({ handleSwitch }) {
+const settings = ['profile', 'settings', 'logout'];
+
+export default function NavBar({ userId, handleSwitch }) {
    const [anchorElNav, setAnchorElNav] = useState(null);
    const [anchorElUser, setAnchorElUser] = useState(null);
- 
+
    const handleOpenNavMenu = (event) => {
-     setAnchorElNav(event.currentTarget);
+      setAnchorElNav(event.currentTarget);
    };
    const handleOpenUserMenu = (event) => {
-     setAnchorElUser(event.currentTarget);
+      setAnchorElUser(event.currentTarget);
    };
- 
+
    const handleCloseNavMenu = () => {
-     setAnchorElNav(null);
+      setAnchorElNav(null);
    };
- 
+
    const handleCloseUserMenu = () => {
-     setAnchorElUser(null);
+      setAnchorElUser(null);
    };
 
    return (
@@ -58,7 +65,7 @@ export default function NavBar({ handleSwitch }) {
                   Money Manager
                </Typography>
                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                  <MenuIcon 
+                  <MenuIcon
                      onClick={handleOpenNavMenu}
                      className='main-nav__menu-icon'
                   />
@@ -80,31 +87,39 @@ export default function NavBar({ handleSwitch }) {
                         display: { xs: 'block', md: 'none' },
                      }}
                   >
-                     {pages.map((page) => {
-                        const path = page !== 'home' 
-                            ? `/${page}` : '/';
+                     {Object.keys(pagesObj).map((page) => {
+                        const path = page === 'home'
+                              ? '/' : 'accounts'
+                              ? `/${page}/${userId}`
+                              : `/${page}`;
                         return (
                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                              <Link href={path}>{page}</Link>
+                              <Link href={path}>{pagesObj[page]}</Link>
                            </MenuItem>
                         )
                      })}
                   </Menu>
                </Box>
-               <ThemeSwitch 
+               <ThemeSwitch
                   className="main-nav__theme-switch"
-                  handleSwitch={handleSwitch} 
+                  handleSwitch={handleSwitch}
                />
                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                  {pages.map((page) => (
-                     <Button
-                        key={page}
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                     >
-                        {page}
-                     </Button>
-                  ))}
+                  {Object.keys(pagesObj).map((page) => {
+                     const path = page === 'home'
+                        ? '/' : 'accounts'
+                           ? `/${page}/${userId}`
+                           : `/${page}`;
+                     return (
+                        <Button
+                           key={page}
+                           onClick={handleCloseNavMenu}
+                           sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                           <Link href={path}>{pagesObj[page]}</Link>
+                        </Button>
+                     );
+                  })}
                </Box>
                <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
