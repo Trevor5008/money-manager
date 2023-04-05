@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { router } from 'next/router';
+import { signOut } from 'next-auth/react';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
@@ -6,13 +8,13 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const pagesObj = {
    'home': 'Home',
@@ -39,7 +41,12 @@ export default function NavBar({ userId, handleSwitch }) {
       setAnchorElNav(null);
    };
 
-   const handleCloseUserMenu = () => {
+   const handleCloseUserMenu = (evt) => {
+      const option = evt.target.attributes.name.value;
+      if (option === 'logout') {
+         signOut();
+         router.push('/');
+      }
       setAnchorElUser(null);
    };
 
@@ -144,8 +151,16 @@ export default function NavBar({ userId, handleSwitch }) {
                      onClose={handleCloseUserMenu}
                   >
                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                           <Typography textAlign="center">{setting}</Typography>
+                        <MenuItem 
+                           key={setting} 
+                        >
+                           <Typography 
+                              textAlign="center"
+                              onClick={(evt) => handleCloseUserMenu(evt, setting)}
+                              name={setting}
+                           >
+                              {setting}
+                           </Typography>
                         </MenuItem>
                      ))}
                   </Menu>

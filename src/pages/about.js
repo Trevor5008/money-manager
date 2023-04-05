@@ -16,7 +16,7 @@ export default function About({ data }) {
    return (
       <section className="about">
          <h1>Users: </h1>
-         {userData.map(user => {
+         {/* {userData.map(user => {
             return (
                <div>
                   <h2>{user.name}</h2>
@@ -26,7 +26,7 @@ export default function About({ data }) {
                   </p>
                </div>
             );
-         })}
+         })} */}
       </section>
    );
 };
