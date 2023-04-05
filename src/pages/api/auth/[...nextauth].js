@@ -55,7 +55,6 @@ export const authOptions = {
   
         if (user.name === username && user.password === password) {
           // Any object returned will be saved in `user` property of the JWT
-          console.log(user)
           return user
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
