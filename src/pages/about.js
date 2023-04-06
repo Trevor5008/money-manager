@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export async function getStaticProps(ctx) {
-
-   const res = await axios.get('http://localhost:3000/api/get_users');
+   const res = await axios.get("http://localhost:3000/api/get_users");
 
    return {
-      props: { data: res.data }
-   }
+      props: { data: res.data },
+   };
 }
 
 export default function About({ data }) {
@@ -29,4 +28,4 @@ export default function About({ data }) {
          })} */}
       </section>
    );
-};
+}

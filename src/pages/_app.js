@@ -6,9 +6,11 @@ import { ThemeProvider } from "@emotion/react";
 import Head from "next/head";
 import NavBar from "../frontend/components/NavBar/NavBar";
 import "@/styles/globals.scss";
+import "@/styles/home.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
-import BacImage from '../assets/fontawesome/images/bacteria.svg'
+import CreditCard from "../assets/fontawesome/images/credit-card.svg";
+import Image from "next/image";
 
 export default function App({
    Component,
@@ -44,17 +46,16 @@ export default function App({
                content="width=device-width, initial-scale=1"
             />
             <link rel="icon" href="/money-mgr-favicon.ico" />
-            <script defer src="../assets/fontawesome/js/solid.js"></script>
-            <script
-               defer
-               src="../assets/fontawesome/js/fontawesome.js"
-            ></script>
          </Head>
          <ThemeProvider theme={theme}>
             <SessionProvider session={session}>
                <CssBaseline />
                <NavBar userId={userId} handleSwitch={handleSwitch} />
-               <img src={BacImage} />
+               <Image
+                  className="icon"
+                  src={CreditCard}
+                  alt="credit card icon"
+               />
                <Component {...pageProps} />
             </SessionProvider>
          </ThemeProvider>

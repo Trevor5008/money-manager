@@ -1,19 +1,22 @@
 import { useSession, signIn } from "next-auth/react";
-import Landing from '../../../pages/landing';
+import Landing from "../../../pages/landing";
+import Button from "@mui/material/Button";
 
 export default function LoginButton() {
-  const { data: session, status } = useSession();
+   const { data: session, status } = useSession();
 
-  if (status === 'authenticated' && session) {
-    return (
+   if (status === "authenticated" && session) {
+      return (
+         <>
+            <Landing userData={session} />
+         </>
+      );
+   }
+   return (
       <>
-        <Landing userData={session}/>
+         <Button variant="outlined" onClick={() => signIn()}>
+            Sign in
+         </Button>
       </>
-    )
-  }
-  return (
-    <>
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  )
+   );
 }

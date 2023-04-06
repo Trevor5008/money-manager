@@ -14,7 +14,7 @@ import { compare } from "bcrypt";
 export const authOptions = {
    adapter: PrismaAdapter(prisma),
    session: {
-      strategy: 'jwt'
+      strategy: "jwt",
    },
    providers: [
       GithubProvider({
@@ -61,39 +61,36 @@ export const authOptions = {
             }
 
             return {
-               id: user.id + '',
+               id: user.id + "",
                username: user.username,
                name: user.name,
                email: user.email,
-               randomKey: 'Hey cool'
-            }
+            };
          },
       }),
    ],
    callbacks: {
       jwt: ({ token, user }) => {
-         // console.log('JWT Callback', { token, user })
+         console.log("JWT Callback", { token, user });
          if (user) {
             return {
                ...token,
                id: user.id,
-               randomKey: user.radomKey
-            }
+            };
          }
          return token;
       },
       session: ({ session, token }) => {
-         // console.log('Session Callback', { session, token })
+         console.log("Session Callback", { session, token });
          return {
             ...session,
             user: {
                ...session.user,
                id: token.id,
-               randomKey: token.randomKey
-            }
-         }
-      }
-   }
+            },
+         };
+      },
+   },
 };
 
 export default NextAuth(authOptions);
