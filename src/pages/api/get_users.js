@@ -1,13 +1,10 @@
-import mysql from '../../../knexfile';
+// import { prisma } from '../../database/prisma';
 
-const db = require('knex')(mysql.development);
-
-export default async function handler(req, res) {
-   try {
-      const users = await db('users');
-      res.status(200)
-         .json(users);
-   } catch (err) {
-      console.log(err)
-   }
-};
+// export default async function handler(req, res) {
+//    try {
+//       const users = await prisma.user.findMany();
+//       res.json(users);
+//    } catch (err) {
+//       console.log(err)
+//    }
+// };

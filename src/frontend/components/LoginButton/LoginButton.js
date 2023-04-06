@@ -1,10 +1,10 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Landing from '../../../pages/landing';
 
 export default function LoginButton() {
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
-  if (status === 'authenticated') {
+  if (status === 'authenticated' && session) {
     return (
       <>
         <Landing userData={session}/>

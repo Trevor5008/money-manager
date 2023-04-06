@@ -7,8 +7,104 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model starter {
-  id          Int       @id @default(autoincrement())
-  create_time DateTime? @db.DateTime(0)
-  name        String?   @db.VarChar(255)
+model User {
+  id            String    @id @default(cuid())
+  username      String?   @unique
+  password      String?
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  ledgerAccounts LedgerAccount[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Icon {
+   id       String   @id @default(cuid())
+   name     String
+   accountTypes AccountType[]
+   transactionTypes  TransactionType[]
+}
+
+model AccountType {
+   id       String   @id @default(cuid())
+   type     String 
+   iconId   String  
+   icon     Icon     @relation(fields: [iconId], references: [id], onDelete: Cascade)
+   ledgerAccounts LedgerAccount[]
+}
+
+model LedgerAccount {
+   id       String   @id @default(cuid())
+   accountTypeId  String 
+   userId   String
+   name     String
+   startingBalance   Decimal
+   openedDate     DateTime
+   closedDate     DateTime
+   description    String
+   users     User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+   accountType AccountType @relation(fields: [accountTypeId], references: [id], onDelete: Cascade)
+   transactions   Transaction[]
+}  
+
+model TransactionType {
+   id    String   @id @default(cuid())
+   iconId   String
+   type     String
+   icon     Icon  @relation(fields: [iconId], references: [id], onDelete: Cascade)
+   transactions   Transaction[]
+}
+
+model RecurrencePeriod {
+   id    String   @id @default(cuid())
+   type  String
+   iterations  Int
+   transactions   Transaction[]
+}
+
+model Transaction {
+   id    String @id  @default(cuid())
+   ledgerAccountId   String
+   transactionTypeId String
+   recurrencePeriodId   String
+   ledgerAcount  LedgerAccount  @relation(fields: [ledgerAccountId], references: [id], onDelete: Cascade)
+   recurrencePeriod   RecurrencePeriod  @relation(fields: [recurrencePeriodId], references: [id], onDelete: Cascade)
+   transactionType   TransactionType @relation(fields: [transactionTypeId], references: [id], onDelete: Cascade)
 }

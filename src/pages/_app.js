@@ -9,7 +9,7 @@ import "@/styles/globals.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
 
-export default function App({ Component, pageProps, session }) {
+export default function App({ Component, pageProps: { session, ...pageProps }}) {
    const [render, setRender] = useState(false);
    const [colorTheme, setColorTheme] = useState("light");
    const [userId, setUserId] = useState(1);
@@ -44,7 +44,10 @@ export default function App({ Component, pageProps, session }) {
          <ThemeProvider theme={theme}>
             <SessionProvider session={session}>
                <CssBaseline />
-               <NavBar userId={userId} handleSwitch={handleSwitch} />
+               <NavBar 
+                  userId={userId} 
+                  handleSwitch={handleSwitch} 
+               />
                <Component {...pageProps} />
             </SessionProvider>
          </ThemeProvider>
