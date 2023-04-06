@@ -8,8 +8,12 @@ import NavBar from "../frontend/components/NavBar/NavBar";
 import "@/styles/globals.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
+import BacImage from '../assets/fontawesome/images/bacteria.svg'
 
-export default function App({ Component, pageProps: { session, ...pageProps }}) {
+export default function App({
+   Component,
+   pageProps: { session, ...pageProps },
+}) {
    const [render, setRender] = useState(false);
    const [colorTheme, setColorTheme] = useState("light");
    const [userId, setUserId] = useState(1);
@@ -40,14 +44,17 @@ export default function App({ Component, pageProps: { session, ...pageProps }}) 
                content="width=device-width, initial-scale=1"
             />
             <link rel="icon" href="/money-mgr-favicon.ico" />
+            <script defer src="../assets/fontawesome/js/solid.js"></script>
+            <script
+               defer
+               src="../assets/fontawesome/js/fontawesome.js"
+            ></script>
          </Head>
          <ThemeProvider theme={theme}>
             <SessionProvider session={session}>
                <CssBaseline />
-               <NavBar 
-                  userId={userId} 
-                  handleSwitch={handleSwitch} 
-               />
+               <NavBar userId={userId} handleSwitch={handleSwitch} />
+               <img src={BacImage} />
                <Component {...pageProps} />
             </SessionProvider>
          </ThemeProvider>
