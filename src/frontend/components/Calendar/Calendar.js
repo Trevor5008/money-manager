@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -22,13 +21,6 @@ function ServerDay(props) {
 }
 
 function Calendar({ handleDaySelect }) {
-   const [selectedDay, setSelectedDay] = useState(new Date());
-
-   const handleClick = (day) => {
-      setSelectedDay(day.$d)
-      handleDaySelect(selectedDay);
-   }
-
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <DateCalendar
@@ -37,7 +29,7 @@ function Calendar({ handleDaySelect }) {
             renderLoading={() => <DayCalendarSkeleton />}
             slots={{
                day: (props) => (
-                  <ServerDay {...props} onClick={handleClick}/>
+                  <ServerDay {...props} onClick={handleDaySelect}/>
                )
             }}
          />

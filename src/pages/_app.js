@@ -4,13 +4,13 @@ import { createTheme } from "@mui/material";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import Head from "next/head";
-import NavBar from "../frontend/components/NavBar/NavBar";
 import "@/styles/globals.scss";
 import "@/styles/home.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
 import "../pages/accounts/add.scss";
 import "../styles/accounts.scss";
+import "../pages/transaction/add.scss";
 
 export default function App({
    Component,
@@ -18,17 +18,17 @@ export default function App({
 }) {
    const [render, setRender] = useState(false);
    const [colorTheme, setColorTheme] = useState("light");
-   const [userId, setUserId] = useState(1);
 
    const theme = createTheme({
       palette: {
          mode: colorTheme,
-         angry: 'red'
       },
       typography: {},
    });
 
-   useEffect(() => setRender(true), []);
+   useEffect(() => {
+      setRender(true);
+   }, [session]);
 
    if (typeof window === "undefined") return null;
 
@@ -51,8 +51,10 @@ export default function App({
          <ThemeProvider theme={theme}>
             <SessionProvider session={session}>
                <CssBaseline />
-               <NavBar userId={userId} handleSwitch={handleSwitch} />
-               <Component {...pageProps} />
+               <Component 
+                  {...pageProps} 
+                  handleSwitch={handleSwitch}
+               />
             </SessionProvider>
          </ThemeProvider>
       </>

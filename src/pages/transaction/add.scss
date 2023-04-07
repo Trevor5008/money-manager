@@ -1,0 +1,28 @@
+.transaction-add {
+
+   &__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      margin: 0 auto;
+      text-align: justify;
+      padding: 1rem 2rem 2rem;
+   }
+
+   &__input-group {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem;
+   }
+}
+
+input, select {
+   padding: .5rem;
+   border-radius: .5rem;
+   border: 1px solid gray;
+}
+
+button.MuiButtonBase-root {
+   margin-top: 1rem;
+}

@@ -18,7 +18,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import { blueGrey } from '@mui/material/colors';
 import axios from "axios";
 
 const pagesObj = {
@@ -31,7 +30,7 @@ const pagesObj = {
 
 const settings = ["profile", "settings", "logout"];
 
-export default function NavBar({ userId, handleSwitch }) {
+export default function NavBar({ handleSwitch, selectedDay }) {
    const session = useSession();
    const [anchorElNav, setAnchorElNav] = useState(null);
    const [anchorElUser, setAnchorElUser] = useState(null);
@@ -72,8 +71,7 @@ export default function NavBar({ userId, handleSwitch }) {
    };
 
    const handleAdd = () => {
-      console.log(userData)
-      // router.push('/transactions')
+      router.push('/transaction/add')
    }
 
    return (
@@ -121,7 +119,8 @@ export default function NavBar({ userId, handleSwitch }) {
                      }}
                   >
                      {Object.keys(pagesObj).map((page) => {
-                        const path = page !== "home" ? `/${page}` : "/";
+                        const path = page !== "home" 
+                           ? `/${page}` : "/";
                         return (
                            <MenuItem key={page} onClick={handleCloseNavMenu}>
                               <Link href={path}>{pagesObj[page]}</Link>

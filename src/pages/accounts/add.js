@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
+import NavBar from "../../frontend/components/NavBar/NavBar";
 import axios from "axios";
 
-export default function AddAccount() {
+export default function AddAccount({ handleSwitch }) {
    const router = useRouter();
    const [accountTypes, setAccountTypes] = useState(null);
    const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,7 @@ export default function AddAccount() {
 
    return (
       <>
+         <NavBar handleSwitch={handleSwitch} />
          <h1 className="account-add__title">Add an Account</h1>
          <form onSubmit={handleSubmit} className="account-add__form">
             {accountTypes && (
