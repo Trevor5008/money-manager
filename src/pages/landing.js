@@ -7,6 +7,7 @@ export default function Landing() {
    const session = useSession();
    const [userData, setUserData] = useState(null);
    const [isLoading, setLoading] = useState(false);
+   const [currentDay, setCurrentDay] = useState(null);
 
    useEffect(() => {
       setLoading(true);
@@ -18,11 +19,15 @@ export default function Landing() {
       }
    }, [session]);
 
+   const handleDaySelect = (selectedDay) => {
+      setCurrentDay(selectedDay)
+   }
+
    if (isLoading) return <p>Loading...</p>;
    if (!userData) return <p>No profile data</p>;
    return (
       <section className="dashboard">
-         <Calendar />
+         <Calendar handleDaySelect={handleDaySelect}/>
          <div className="dashboard__transactions">
             <div className="dashboard__transaction-category">
                <h2 className="dashboard__transaction-header">Expenses</h2>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -6,11 +7,8 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import Badge from "@mui/material/Badge";
 
 function ServerDay(props) {
-   const { day, ...other } = props;
+   const { day, onClick, ...other } = props;
 
-   function handleClick(e) {
-      console.log(e.target.value);
-   }
    return (
       <Badge
          className="calendar__date--event"
@@ -18,11 +16,19 @@ function ServerDay(props) {
          overlap="circular"
          badgeContent={"🌚"}
       >
-         <PickersDay {...other} day={day} onClick={(e) => handleClick(e)} />
+         <PickersDay {...other} day={day} onClick={() => onClick(day)} />
       </Badge>
    );
 }
-function Calendar() {
+
+function Calendar({ handleDaySelect }) {
+   const [selectedDay, setSelectedDay] = useState(new Date());
+
+   const handleClick = (day) => {
+      setSelectedDay(day.$d)
+      handleDaySelect(selectedDay);
+   }
+
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <DateCalendar
@@ -30,7 +36,9 @@ function Calendar() {
             showDaysOutsideCurrentMonth
             renderLoading={() => <DayCalendarSkeleton />}
             slots={{
-               day: ServerDay,
+               day: (props) => (
+                  <ServerDay {...props} onClick={handleClick}/>
+               )
             }}
          />
       </LocalizationProvider>

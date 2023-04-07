@@ -18,10 +18,5 @@ export default async function handler(req, res) {
       }
    });
 
-   const icons = await prisma.accountType.findMany({
-      where: {
-
-      }
-   })
    res.json(user);
 }

@@ -7,7 +7,9 @@ import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import AddIcon from '@mui/icons-material/Add';
 import IconButton from "@mui/material/IconButton";
+import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -16,6 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
+import { blueGrey } from '@mui/material/colors';
 import axios from "axios";
 
 const pagesObj = {
@@ -67,6 +70,11 @@ export default function NavBar({ userId, handleSwitch }) {
       }
       setAnchorElUser(null);
    };
+
+   const handleAdd = () => {
+      console.log(userData)
+      // router.push('/transactions')
+   }
 
    return (
       <AppBar className="main-nav" position="static">
@@ -139,6 +147,14 @@ export default function NavBar({ userId, handleSwitch }) {
                         </Button>
                      );
                   })}
+               </Box>
+               <Box sx={{ "& > :not(style)": { m: 1 } }}>
+                  <Fab 
+                     aria-label="add"
+                     onClick={handleAdd}
+                  >
+                     <AddIcon />
+                  </Fab>
                </Box>
                <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">

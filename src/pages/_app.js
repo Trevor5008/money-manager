@@ -23,6 +23,7 @@ export default function App({
    const theme = createTheme({
       palette: {
          mode: colorTheme,
+         angry: 'red'
       },
       typography: {},
    });
