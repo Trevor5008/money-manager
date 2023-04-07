@@ -1,17 +1,25 @@
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import Calendar from "../frontend/components/Calendar/Calendar";
-import useSWR from "swr";
+import axios from "axios";
 
 export default function Landing() {
-   // const fetcher = (...args) =>
-   //    fetch(...args).then((res) => {
-   //       console.log(res.body);
-   //       res.json();
-   //    });
+   const session = useSession();
+   const [userData, setUserData] = useState(null);
+   const [isLoading, setLoading] = useState(false);
 
-   // const { data, error } = useSWR("/api/get_users", fetcher);
-   // if (error) return <div>An error occured.</div>;
-   // if (!data) return <div>Loading ...</div>;
+   useEffect(() => {
+      setLoading(true);
+      if (session.data) {
+         axios.get(`/api/get_user/${session.data.user.id}`).then((data) => {
+            setUserData(data.data);
+            setLoading(false);
+         });
+      }
+   }, [session]);
 
+   if (isLoading) return <p>Loading...</p>;
+   if (!userData) return <p>No profile data</p>;
    return (
       <section className="dashboard">
          <Calendar />
@@ -19,7 +27,9 @@ export default function Landing() {
             <div className="dashboard__transaction-category">
                <h2 className="dashboard__transaction-header">Expenses</h2>
                <ul className="dashboard__transaction-body">
-                  {/* <li>{users[0].name} ${usersamount}</li> */}
+                  <li>
+                     {userData.name} ${userData.email}
+                  </li>
                </ul>
             </div>
             <div className="dashboard__transaction-category">

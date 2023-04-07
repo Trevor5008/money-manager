@@ -9,8 +9,8 @@ import "@/styles/globals.scss";
 import "@/styles/home.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
-import CreditCard from "../assets/fontawesome/images/credit-card.svg";
-import Image from "next/image";
+import "../pages/accounts/add.scss";
+import "../styles/accounts.scss";
 
 export default function App({
    Component,
@@ -51,11 +51,6 @@ export default function App({
             <SessionProvider session={session}>
                <CssBaseline />
                <NavBar userId={userId} handleSwitch={handleSwitch} />
-               <Image
-                  className="icon"
-                  src={CreditCard}
-                  alt="credit card icon"
-               />
                <Component {...pageProps} />
             </SessionProvider>
          </ThemeProvider>

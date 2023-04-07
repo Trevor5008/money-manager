@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { router } from "next/router";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -15,6 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
+import axios from "axios";
 
 const pagesObj = {
    home: "Home",
@@ -27,8 +29,18 @@ const pagesObj = {
 const settings = ["profile", "settings", "logout"];
 
 export default function NavBar({ userId, handleSwitch }) {
+   const session = useSession();
    const [anchorElNav, setAnchorElNav] = useState(null);
    const [anchorElUser, setAnchorElUser] = useState(null);
+   const [userData, setUserData] = useState(null);
+
+   useEffect(() => {
+      if (session.data) {
+         axios.get(`/api/get_user/${session.data.user.id}`).then((data) => {
+            setUserData(data.data);
+         });
+      }
+   }, [session]);
 
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -46,8 +58,9 @@ export default function NavBar({ userId, handleSwitch }) {
       if (attributes.name) {
          const option = attributes.name.value;
          if (option === "logout") {
-            signOut();
-            router.push("/");
+            signOut({
+               callbackUrl: "http://localhost:3000",
+            });
          } else {
             router.push(`/${option}`);
          }
@@ -100,12 +113,7 @@ export default function NavBar({ userId, handleSwitch }) {
                      }}
                   >
                      {Object.keys(pagesObj).map((page) => {
-                        const path =
-                           page === "home"
-                              ? "/"
-                              : "accounts"
-                              ? `/${page}/${userId}`
-                              : `/${page}`;
+                        const path = page !== "home" ? `/${page}` : "/";
                         return (
                            <MenuItem key={page} onClick={handleCloseNavMenu}>
                               <Link href={path}>{pagesObj[page]}</Link>
@@ -120,12 +128,7 @@ export default function NavBar({ userId, handleSwitch }) {
                />
                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                   {Object.keys(pagesObj).map((page) => {
-                     const path =
-                        page === "home"
-                           ? "/"
-                           : "accounts"
-                           ? `/${page}/${userId}`
-                           : `/${page}`;
+                     const path = page !== "home" ? `/${page}` : "/";
                      return (
                         <Button
                            key={page}
@@ -140,7 +143,10 @@ export default function NavBar({ userId, handleSwitch }) {
                <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="" />
+                        <Avatar
+                           alt="Remy Sharp"
+                           src={userData ? userData.image : "#"}
+                        />
                      </IconButton>
                   </Tooltip>
                   <Menu

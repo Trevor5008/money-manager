@@ -5,7 +5,6 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-// import { prisma } from '../../../database/prisma';
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -71,7 +70,7 @@ export const authOptions = {
    ],
    callbacks: {
       jwt: ({ token, user }) => {
-         console.log("JWT Callback", { token, user });
+         // console.log("JWT Callback", { token, user });
          if (user) {
             return {
                ...token,
@@ -81,7 +80,7 @@ export const authOptions = {
          return token;
       },
       session: ({ session, token }) => {
-         console.log("Session Callback", { session, token });
+         // console.log("Session Callback", { session, token });
          return {
             ...session,
             user: {

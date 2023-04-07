@@ -1,41 +1,66 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Button from "@mui/material/Button";
+import axios from "axios";
 
-export async function getServerSideProps(ctx) {
-   const session = await getServerSession(ctx.req, ctx.res, authOptions);
+export default function Accounts() {
+   const session = useSession();
+   const router = useRouter();
+   const [isLoading, setIsLoading] = useState(true);
+   const [userData, setUserData] = useState(null);
 
-   if (!session) {
-      return {
-         redirect: {
-            destination: "/",
-            permanent: false,
-         },
-      };
-   }
-
-   return {
-      props: {
-         session
+   useEffect(() => {
+      setIsLoading(true);
+      if (session.data) {
+         axios.get(`/api/get_user/${session.data.user.id}`).then((data) => {
+            setUserData(data.data);
+            setIsLoading(false);
+         });
       }
-   };
-}
+   }, [session]);
 
-export default function Accounts({ userData }) {
+   if (isLoading) return <h1>Loading...</h1>;
 
    return (
-      <>
-         <h1>{userData[0].owner}'s Accounts: </h1>
-         {userData.map((account, idx) => {
+      <section className="accounts">
+         <h1 className="accounts__title">Accounts: </h1>
+         {userData.ledgerAccounts.map((account, idx) => {
+            const image = account.accountType.icon;
             return (
-               <div key={idx}>
-                  <h2>{account.name}</h2>
-                  <h3>Starting Balance: ${account.starting_balance}</h3>
-                  <h5>{account.description}</h5>
+               <div key={idx} className="accounts__account">
+                  <div className="accounts__subtitle">
+                     <Image
+                        width={100}
+                        height={100}
+                        className="item-icon"
+                        src={`/assets/fontawesome/images/${image}`}
+                        alt={image.split(".")[0]}
+                     />
+                     <h2 className="accounts__account-name">{account.name}</h2>
+                  </div>
+                  <div className="accounts__account-details">
+                     <h3>Balance: ${account.startingBalance}</h3>
+                     <h5>{account.description}</h5>
+                  </div>
                </div>
             );
          })}
-      </>
+         <div className="accounts__btn-container">
+            <Button
+               variant="contained"
+               className="accounts__addBtn"
+               onClick={() =>
+                  router.push({
+                     pathname: "/accounts/add",
+                     query: { id: userData.id },
+                  })
+               }
+            >
+               Add Account:
+            </Button>
+         </div>
+      </section>
    );
 }
