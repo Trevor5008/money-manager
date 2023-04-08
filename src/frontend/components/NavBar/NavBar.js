@@ -71,7 +71,10 @@ export default function NavBar({ handleSwitch, selectedDay }) {
    };
 
    const handleAdd = () => {
-      router.push('/transaction/add')
+      router.push({
+         pathname: '/transaction/add',
+         query: { id: userData.id}
+      })
    }
 
    return (

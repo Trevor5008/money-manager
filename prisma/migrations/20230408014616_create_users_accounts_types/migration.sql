@@ -1,19 +1,4 @@
 -- CreateTable
-CREATE TABLE `User` (
-    `id` VARCHAR(191) NOT NULL,
-    `username` VARCHAR(191) NULL,
-    `password` VARCHAR(191) NULL,
-    `name` VARCHAR(191) NULL,
-    `email` VARCHAR(191) NULL,
-    `emailVerified` DATETIME(3) NULL,
-    `image` VARCHAR(191) NULL,
-
-    UNIQUE INDEX `User_username_key`(`username`),
-    UNIQUE INDEX `User_email_key`(`email`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `Account` (
     `id` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
@@ -63,6 +48,21 @@ CREATE TABLE `account_type` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `User` (
+    `id` VARCHAR(191) NOT NULL,
+    `username` VARCHAR(191) NULL,
+    `password` VARCHAR(191) NULL,
+    `name` VARCHAR(191) NULL,
+    `email` VARCHAR(191) NULL,
+    `emailVerified` DATETIME(3) NULL,
+    `image` VARCHAR(191) NULL,
+
+    UNIQUE INDEX `User_username_key`(`username`),
+    UNIQUE INDEX `User_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `ledger_account` (
     `id` VARCHAR(191) NOT NULL,
     `accountTypeId` VARCHAR(191) NOT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE `ledger_account` (
     `name` VARCHAR(191) NOT NULL,
     `startingBalance` DECIMAL(65, 30) NOT NULL,
     `openedDate` DATETIME(3) NOT NULL,
-    `closedDate` DATETIME(3) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `closedDate` DATETIME(3) NULL,
+    `description` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -79,7 +79,6 @@ CREATE TABLE `ledger_account` (
 -- CreateTable
 CREATE TABLE `transaction_type` (
     `id` VARCHAR(191) NOT NULL,
-    `iconId` VARCHAR(191) NOT NULL,
     `type` VARCHAR(191) NOT NULL,
     `icon` VARCHAR(191) NOT NULL,
 
@@ -90,7 +89,6 @@ CREATE TABLE `transaction_type` (
 CREATE TABLE `recurrence_period` (
     `id` VARCHAR(191) NOT NULL,
     `type` VARCHAR(191) NOT NULL,
-    `iterations` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -98,9 +96,16 @@ CREATE TABLE `recurrence_period` (
 -- CreateTable
 CREATE TABLE `Transaction` (
     `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `amount` DECIMAL(65, 30) NOT NULL,
+    `date` DATETIME(3) NOT NULL,
+    `iterations` INTEGER NULL,
+    `start_date` INTEGER NULL,
+    `end_date` DATETIME(3) NULL,
     `ledgerAccountId` VARCHAR(191) NOT NULL,
     `transactionTypeId` VARCHAR(191) NOT NULL,
-    `recurrencePeriodId` VARCHAR(191) NOT NULL,
+    `recurrencePeriodId` VARCHAR(191) NULL,
+    `notes` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

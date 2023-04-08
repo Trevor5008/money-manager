@@ -11,7 +11,7 @@ export default function Accounts({ handleSwitch }) {
    const router = useRouter();
    const [isLoading, setIsLoading] = useState(true);
    const [userData, setUserData] = useState(null);
-
+   
    useEffect(() => {
       setIsLoading(true);
       if (session.data) {
@@ -29,7 +29,7 @@ export default function Accounts({ handleSwitch }) {
          <NavBar handleSwitch={handleSwitch} />
          <section className="accounts">
             <h1 className="accounts__title">Accounts: </h1>
-            {userData.ledgerAccounts.map((account, idx) => {
+            {userData && userData.ledgerAccounts.map((account, idx) => {
                const image = account.accountType.icon;
                return (
                   <div key={idx} className="accounts__account">
@@ -59,7 +59,7 @@ export default function Accounts({ handleSwitch }) {
                   onClick={() =>
                      router.push({
                         pathname: "/accounts/add",
-                        query: { id: userData.id },
+                        query: { id: session.data.user.id },
                      })
                   }
                >
