@@ -9,22 +9,23 @@ export default async function handler(req, res) {
       onDate,
       iterations,
       endDate,
+      specificDay,
       accountId,
       transactionTypeId,
       recurrenceId,
+      recurrence,
       description,
+      isSettled,
    } = req.body;
 
-   const parsedEndDate = endDate 
-      ? new Date(endDate) : null;
-
+   const parsedEndDate = endDate ? new Date(endDate) : null;
    const typeData = await prisma.transactionType.findFirst({
       where: { id: transactionTypeId },
-      select: { type: true }
+      select: { type: true },
    });
 
    const transactionName = name || typeData.type;
-   
+
    const newTransaction = await prisma.transaction.create({
       data: {
          name: transactionName,
@@ -39,8 +40,46 @@ export default async function handler(req, res) {
       },
    });
 
+   // // Create transaction occurrences based on the transaction data
+   let occurrenceDate = new Date(onDate);
+   const occurrenceNotes = description || "";
+
+   for (let i = 1; i <= iterations; i++) {
+      // Update occurrenceDate to the next occurrence date 
+      // based on recurrence period
+      if (recurrence === "Daily") {
+         occurrenceDate.setDate(occurrenceDate.getDate() + 1);
+      } else if (recurrence === "Weekly") {
+         occurrenceDate.setDate(occurrenceDate.getDate() + 7);
+      } else if (recurrence === "Monthly") {
+         occurrenceDate = new Date(occurrenceDate.getFullYear(),
+            occurrenceDate.getMonth() + 1, specificDay);
+         console.log(occurrenceDate)
+         
+      } else if (recurrence === "Quarterly") {
+         occurrenceDate.setMonth(occurrenceDate.getMonth() + 3);
+      } else if (recurrence === "Yearly") {
+         occurrenceDate.setFullYear(occurrenceDate.getFullYear() + 1);
+      }
+
+      await prisma.transactionOccurrence.create({
+         data: {
+            date: occurrenceDate,
+            notes: occurrenceNotes,
+            isSettled,
+            transaction: {
+               connect: {
+                  id: newTransaction.id,
+               },
+            },
+         },
+      });
+   }
+
    res.json({
-      success: `${newTransaction} has been created`,
+      success: `${newTransaction.name} has been created with ${iterations} occurrences`,
    });
-   console.log(`${newTransaction} has been created`);
+   console.log(
+      `${newTransaction.name} has been created with ${iterations} occurrences`
+   );
 }

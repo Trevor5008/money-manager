@@ -96,16 +96,26 @@ CREATE TABLE `recurrence_period` (
 -- CreateTable
 CREATE TABLE `Transaction` (
     `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NULL,
     `amount` DECIMAL(65, 30) NOT NULL,
     `date` DATETIME(3) NOT NULL,
-    `iterations` INTEGER NULL,
-    `start_date` INTEGER NULL,
+    `iterations` INTEGER NOT NULL,
     `end_date` DATETIME(3) NULL,
     `ledgerAccountId` VARCHAR(191) NOT NULL,
     `transactionTypeId` VARCHAR(191) NOT NULL,
     `recurrencePeriodId` VARCHAR(191) NULL,
     `notes` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `transaction_occurrence` (
+    `id` VARCHAR(191) NOT NULL,
+    `transactionId` VARCHAR(191) NOT NULL,
+    `date` DATETIME(3) NOT NULL,
+    `notes` VARCHAR(191) NULL,
+    `isSettled` BOOLEAN NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -130,3 +140,6 @@ ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_recurrencePeriodId_fkey` F
 
 -- AddForeignKey
 ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_transactionTypeId_fkey` FOREIGN KEY (`transactionTypeId`) REFERENCES `transaction_type`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `transaction_occurrence` ADD CONSTRAINT `transaction_occurrence_transactionId_fkey` FOREIGN KEY (`transactionId`) REFERENCES `Transaction`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

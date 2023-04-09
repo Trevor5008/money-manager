@@ -25,9 +25,30 @@ export default function Transaction({ handleSwitch }) {
       });
    }, []);
 
-   const calcIterations = (start, end, recurPeriod) => {
-      return 10;
-   }
+   const calcIterations = (startDate, endDate, recurPeriod) => {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const oneDay = 1000 * 60 * 60 * 24;
+      const oneWeek = oneDay * 7;
+      const oneMonth = oneWeek * 4;
+      const oneQuarter = oneMonth * 3;
+      const oneYear = oneQuarter * 4;
+      let difference;
+      const diffInMilliseconds = end.getTime() - start.getTime();
+      if (recurPeriod === "Daily") {
+         difference = Math.floor(diffInMilliseconds / oneDay);
+      } else if (recurPeriod === "Weekly") {
+         difference = Math.floor(diffInMilliseconds / oneWeek);
+         console.log(difference)
+      } else if (recurPeriod === "Monthly") {
+         difference = Math.floor(diffInMilliseconds / oneMonth);
+      } else if (recurPeriod === "Quarterly") {
+         difference = Math.floor(diffInMilliseconds / oneQuarter);
+      } else {
+         difference = Math.floor(diffInMilliseconds / oneYear);
+      }
+      return difference;
+   };
 
    const handleSubmit = (evt) => {
       evt.preventDefault();
@@ -50,26 +71,31 @@ export default function Transaction({ handleSwitch }) {
       const specificDay = evt.target.specificDay?.value || null;
       const endDate = evt.target.endDate?.value || null;
       const description = evt.target.description?.value || null;
-      const iterations = 
-         isRecurring && !endDate ? 100 
-         : endDate 
-         ? calcIterations(startDate, endDate, recurrence) : 1;
+      const iterations =
+         isRecurring && !endDate
+            ? 100
+            : endDate
+            ? calcIterations(onDate, endDate, recurrence)
+            : 1;
 
-      axios.post(`/api/transaction/add`, {
-         accountId,
-         transactionTypeId,
-         name,
-         amount,
-         onDate,
-         iterations,
-         recurrenceId,
-         specificDay,
-         endDate,
-         description,
-         isSettled,
-      }).then(data => console.log(data));
+      axios
+         .post(`/api/transaction/add`, {
+            accountId,
+            transactionTypeId,
+            name,
+            amount,
+            onDate,
+            iterations,
+            recurrenceId,
+            recurrence,
+            specificDay,
+            endDate,
+            description,
+            isSettled,
+         })
+         .then((data) => console.log(data));
 
-      console.log("submitted...");
+      console.log('transaction added...');
    };
 
    return (
@@ -85,13 +111,14 @@ export default function Transaction({ handleSwitch }) {
                   >
                      Account:
                      <select name="account">
-                        {accounts && accounts.map((account, idx) => {
-                           return (
-                              <option key={idx} value={account.name}>
-                                 {account.name}
-                              </option>
-                           );
-                        })}
+                        {accounts &&
+                           accounts.map((account, idx) => {
+                              return (
+                                 <option key={idx} value={account.name}>
+                                    {account.name}
+                                 </option>
+                              );
+                           })}
                      </select>
                   </label>
                   <label
@@ -189,11 +216,13 @@ export default function Transaction({ handleSwitch }) {
                      className="transaction-add__input-group"
                   >
                      Settled ?:
-                     <input 
-                        onClick={() => setIsSettled(!isSettled)} type="checkbox" 
-                        name="settled" 
+                     <input
+                        onClick={() => setIsSettled(!isSettled)}
+                        type="checkbox"
+                        name="settled"
                         value={isSettled}
-                     /> {isSettled ? 'Yes' : 'No'}
+                     />{" "}
+                     {isSettled ? "Yes" : "No"}
                   </label>
                </>
             )}

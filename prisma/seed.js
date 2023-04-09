@@ -25,26 +25,23 @@ async function main() {
    const recurrencePeriods = await prisma.recurrencePeriod.createMany({
       data: [
          {
-            type: 'Daily'
+            type: "Daily",
          },
          {
-            type: 'Weekly'
+            type: "Weekly",
          },
          {
-            type: 'Monthly'
+            type: "Monthly",
          },
          {
-            type: 'Specific Day'
+            type: "Quarterly",
          },
          {
-            type: 'Quarterly'
+            type: "Yearly",
          },
-         {
-            type: 'Yearly'
-         }
-      ]
+      ],
    });
-   console.log(`Created recurrencePeriods: ${recurrencePeriods.count}`)
+   console.log(`Created recurrencePeriods: ${recurrencePeriods.count}`);
    const accountTypes = await prisma.accountType.createMany({
       data: [
          {
@@ -71,10 +68,10 @@ async function main() {
             type: "Personal Loan",
             icon: "wallet.svg",
          },
-            {
-               type: "Vehicle Loan",
-               icon: "wallet.svg"
-            }
+         {
+            type: "Vehicle Loan",
+            icon: "wallet.svg",
+         },
       ],
    });
    console.log(`Created ${accountTypes.count} account types`);
@@ -118,51 +115,51 @@ async function main() {
          },
          {
             type: "Maintenance",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Food/Drinks",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Education",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Taxes",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Salary",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Rideshare Income",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Freelance",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Repairs",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Mortgage",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Loan Payment",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Interest Income",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
          {
             type: "Dividend",
-            icon: "wallet.svg"
+            icon: "wallet.svg",
          },
       ],
    });
