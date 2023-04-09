@@ -16,60 +16,65 @@ export default function Landing({ handleSwitch }) {
    useEffect(() => {
       setLoading(true);
       if (session.data) {
-        axios.get(`/api/get_user/${session.data.user.id}`)
-          .then((data) => {
-            setUserData(data.data);
-            if (data.data.hasOwnProperty("ledgerAccounts")) {
-              setUserAccounts(data.data.ledgerAccounts);
+         axios
+            .get(`/api/get_user/${session.data.user.id}`)
+            .then((data) => {
+               setUserData(data.data);
+               if (data.data.hasOwnProperty("ledgerAccounts")) {
+                  setUserAccounts(data.data.ledgerAccounts);
+               }
+               return data.data;
+            })
+            .then((userData) => {
+               if (userData.ledgerAccounts[0].hasOwnProperty("transactions")) {
+                  const transactions = userData.ledgerAccounts.flatMap(
+            (acct) => {
+              return acct.transactions;
             }
-            return data.data;
-          })
-          .then((userData) => {
-            if (userData.ledgerAccounts[0].hasOwnProperty('transactions')) {
-              const transactions = userData.ledgerAccounts.map((acct) => {
-                return acct.transactions;
-              });
-              setUserTransactions(...transactions);
-            }
-            return userTransactions;
-          })
-          .then((transactions) => {
-            if (transactions[0].hasOwnProperty('transactionOccurrences')) {
-              const dailyTransactions = transactions.flatMap((item) => {
-                return item.transactionOccurrences.map((occur) => {
-                  const date = new Date(occur.date);
-                  const sameMonth = date.getMonth() === selectedDay.getMonth();
-                  const sameDay = date.getUTCDate() === selectedDay.getDate();
-                  const sameYear = date.getFullYear() === selectedDay.getFullYear();
-                  if (sameMonth && sameDay && sameYear) {
-                    return occur;
-                  }
-                });
-              });
-              setTransactionOccurrences(dailyTransactions);
-            }
-          })
-          .finally(() => {
-            setLoading(false)
+          );
+          setUserTransactions(transactions);
+          const dailyTransactions = transactions.flatMap((item) => {
+            return item.transactionOccurrences.filter((occur) => {
+              const date = new Date(occur.date);
+              const sameMonth =
+                date.getMonth() === selectedDay.getMonth();
+              const sameDay =
+                date.getUTCDate() === selectedDay.getDate();
+              const sameYear =
+                date.getFullYear() === selectedDay.getFullYear();
+              return sameMonth && sameDay && sameYear;
+            });
           });
-      }
-    }, []);
-    
+          if (dailyTransactions.length > 0) {
+            setTransactionOccurrences(dailyTransactions);
+          } else {
+            setTransactionOccurrences(null);
+          }
+        }
+        return userTransactions;
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+}, []);
 
    const handleDaySelect = (day) => {
-      // setSelectedDay(day.$d);
-      // // const dailyTransactions = userTransactions.flatMap((item) => {
-      // //    return item.transactionOccurrences.map((occur) => {
-      // //      const date = new Date(occur.date);
-      // //      const sameMonth = date.getMonth() === selectedDay.getMonth();
-      // //      const sameDay = date.getUTCDate() === selectedDay.getDate();
-      // //      const sameYear = date.getFullYear() === selectedDay.getFullYear();
-      // //      if (sameMonth && sameDay && sameYear) {
-      // //        return occur;
-      // //      }
-      // //    });
-      // //  });
-      //  setTransactionOccurrences(dailyTransactions);
+      const dailyTransactions = userTransactions.flatMap((item) => {
+         return item.transactionOccurrences.filter((occur) => {
+            const date = new Date(occur.date);
+            const sameMonth = date.getMonth() === day.$d.getMonth();
+            const sameDay = date.getUTCDate() === day.$d.getDate();
+            const sameYear = date.getFullYear() === day.$d.getFullYear();
+            return sameMonth && sameDay && sameYear;
+         });
+      });
+      if (dailyTransactions.length > 0) {
+         setTransactionOccurrences(dailyTransactions);
+      } else {
+         setTransactionOccurrences(null);
+      }
+      setSelectedDay(day.$d);
    };
 
    if (isLoading) return <p>Loading...</p>;
@@ -78,17 +83,22 @@ export default function Landing({ handleSwitch }) {
    return (
       <section className="dashboard">
          <NavBar handleSwitch={handleSwitch} selectedDay={selectedDay} />
-         <Calendar handleDaySelect={handleDaySelect} />
+         <Calendar 
+            handleDaySelect={handleDaySelect} 
+            items={transactionOccurrences}
+         />
          <div className="dashboard__transactions">
             <div className="dashboard__transaction-category">
                <h2 className="dashboard__transaction-header">Expenses</h2>
                <ul className="dashboard__transaction-body">
-                  {transactionOccurrences && transactionOccurrences.map((occur, idx) => {
-                     const name = userTransactions.find(item => {
-                        return item.id === occur.transactionId;
+                  {transactionOccurrences &&
+                     transactionOccurrences.flatMap((occur, idx) => {
+                        const name = userTransactions.find(item => {
+                           return item.id === occur.transactionId
                      }).name;
-                     return <li key={idx}>{name} for {occur.amount}</li>;
-                  })}
+                        return <li key={idx}>{name}: ${occur.amount}</li>
+                     })
+                  }
                </ul>
             </div>
             <div className="dashboard__transaction-category">
