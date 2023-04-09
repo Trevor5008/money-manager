@@ -100,8 +100,6 @@ model RecurrencePeriod {
 model Transaction {
    id                 String           @id @default(cuid())
    name               String?
-   amount             Decimal
-   date              DateTime
    iterations          Int
    end_date          DateTime?
    ledgerAccountId    String
@@ -117,6 +115,7 @@ model Transaction {
 model TransactionOccurrence {
    id                String         @id @default(cuid())
    transactionId     String
+   amount             Decimal
    date              DateTime
    notes             String?
    isSettled         Boolean

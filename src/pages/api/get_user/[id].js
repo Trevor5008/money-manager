@@ -12,11 +12,20 @@ export default async function handler(req, res) {
          ledgerAccounts: {
 
             include: {
-               accountType: true
+               accountType: {
+                  select: {
+                     icon: true
+                  }
+               },
+               transactions: {
+
+                  include: {
+                     transactionOccurrences: true
+                  }
+               }
             }
          }
       }
    });
-
    res.json(user);
 }

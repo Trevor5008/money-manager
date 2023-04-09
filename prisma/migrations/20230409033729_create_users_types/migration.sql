@@ -97,8 +97,6 @@ CREATE TABLE `recurrence_period` (
 CREATE TABLE `Transaction` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NULL,
-    `amount` DECIMAL(65, 30) NOT NULL,
-    `date` DATETIME(3) NOT NULL,
     `iterations` INTEGER NOT NULL,
     `end_date` DATETIME(3) NULL,
     `ledgerAccountId` VARCHAR(191) NOT NULL,
@@ -113,6 +111,7 @@ CREATE TABLE `Transaction` (
 CREATE TABLE `transaction_occurrence` (
     `id` VARCHAR(191) NOT NULL,
     `transactionId` VARCHAR(191) NOT NULL,
+    `amount` DECIMAL(65, 30) NOT NULL,
     `date` DATETIME(3) NOT NULL,
     `notes` VARCHAR(191) NULL,
     `isSettled` BOOLEAN NOT NULL,

@@ -29,8 +29,6 @@ export default async function handler(req, res) {
    const newTransaction = await prisma.transaction.create({
       data: {
          name: transactionName,
-         amount,
-         date: new Date(onDate),
          iterations,
          end_date: parsedEndDate,
          ledgerAccountId: accountId,
@@ -65,6 +63,7 @@ export default async function handler(req, res) {
       await prisma.transactionOccurrence.create({
          data: {
             date: occurrenceDate,
+            amount,
             notes: occurrenceNotes,
             isSettled,
             transaction: {
