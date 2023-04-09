@@ -12,6 +12,7 @@ export default function Landing({ handleSwitch }) {
    const [transactionOccurrences, setTransactionOccurrences] = useState(null);
    const [isLoading, setLoading] = useState(false);
    const [selectedDay, setSelectedDay] = useState(new Date());
+   const [daysTransactions, setDaysTransactions] = useState(null);
 
    useEffect(() => {
       setLoading(true);
@@ -28,54 +29,83 @@ export default function Landing({ handleSwitch }) {
             .then((userData) => {
                if (userData.ledgerAccounts[0].hasOwnProperty("transactions")) {
                   const transactions = userData.ledgerAccounts.flatMap(
-            (acct) => {
-              return acct.transactions;
-            }
-          );
-          setUserTransactions(transactions);
-          const dailyTransactions = transactions.flatMap((item) => {
-            return item.transactionOccurrences.filter((occur) => {
-              const date = new Date(occur.date);
-              const sameMonth =
-                date.getMonth() === selectedDay.getMonth();
-              const sameDay =
-                date.getUTCDate() === selectedDay.getDate();
-              const sameYear =
-                date.getFullYear() === selectedDay.getFullYear();
-              return sameMonth && sameDay && sameYear;
+                     (acct) => {
+                        return acct.transactions;
+                     }
+                  );
+                  setUserTransactions(transactions);
+                  const dailyTransactions = transactions.flatMap((item) => {
+                     return item.transactionOccurrences;
+                  });
+                  if (dailyTransactions.length > 0) {
+                     setTransactionOccurrences(dailyTransactions);
+                  } else {
+                     setTransactionOccurrences(null);
+                  }
+               }
+               const daysTransactions = filterTransactions(selectedDay);
+               setDaysTransactions(daysTransactions);
+               return userTransactions;
+            })
+            .finally(() => {
+               setLoading(false);
             });
-          });
-          if (dailyTransactions.length > 0) {
-            setTransactionOccurrences(dailyTransactions);
-          } else {
-            setTransactionOccurrences(null);
-          }
-        }
-        return userTransactions;
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-}, []);
-
-   const handleDaySelect = (day) => {
-      const dailyTransactions = userTransactions.flatMap((item) => {
-         return item.transactionOccurrences.filter((occur) => {
-            const date = new Date(occur.date);
-            const sameMonth = date.getMonth() === day.$d.getMonth();
-            const sameDay = date.getUTCDate() === day.$d.getDate();
-            const sameYear = date.getFullYear() === day.$d.getFullYear();
-            return sameMonth && sameDay && sameYear;
-         });
-      });
-      if (dailyTransactions.length > 0) {
-         setTransactionOccurrences(dailyTransactions);
-      } else {
-         setTransactionOccurrences(null);
       }
-      setSelectedDay(day.$d);
+   }, [session]);
+
+   const filterTransactions = (day) => {
+      if (!userTransactions || !day) return;
+      const date = day.hasOwnProperty("$d") ? day.$d : day;
+      if (userTransactions) {
+         const dailyTransactions = userTransactions.flatMap((item) => {
+            return item.transactionOccurrences.filter((occur) => {
+               const currentDate = new Date(occur.date);
+               const sameMonth = currentDate.getMonth() === date.getMonth();
+               const sameDay = currentDate.getUTCDate() === date.getDate();
+               const sameYear =
+                  currentDate.getFullYear() === date.getFullYear();
+               return sameMonth && sameDay && sameYear;
+            });
+         });
+         setSelectedDay(date);
+         setDaysTransactions(dailyTransactions);
+         return dailyTransactions;
+      }
    };
+
+   const daysOfWeek = {
+      0: 'Sunday',
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday'
+   };
+
+   const parseCurrentDate = (day) => {
+      if (!day || day.toDateString() === new Date().toDateString()) return "Today"; 
+      const dayName = daysOfWeek[day.getUTCDay()];
+      const dayOfMonth = day.getUTCDate();
+      const lastDigit = dayOfMonth.toString().slice(-1);
+      let postFix = 'th';
+
+      if (lastDigit === '1' && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = 'st';
+      } else if (lastDigit === '2' && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = 'nd';
+      } else if (lastDigit === '3' && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = 'rd';
+      } 
+      return `${dayName} ${dayOfMonth}${postFix}`;
+   }
+
+   useEffect(() => {
+      if (transactionOccurrences) {
+         const transactions = filterTransactions(selectedDay);
+         setDaysTransactions(transactions);
+      }
+   }, [transactionOccurrences]);
 
    if (isLoading) return <p>Loading...</p>;
    if (!userData) return <p>No profile data</p>;
@@ -83,27 +113,34 @@ export default function Landing({ handleSwitch }) {
    return (
       <section className="dashboard">
          <NavBar handleSwitch={handleSwitch} selectedDay={selectedDay} />
-         <Calendar 
-            handleDaySelect={handleDaySelect} 
+         <Calendar
+            handleDaySelect={filterTransactions}
             items={transactionOccurrences}
+            selectedDay={selectedDay}
          />
          <div className="dashboard__transactions">
             <div className="dashboard__transaction-category">
-               <h2 className="dashboard__transaction-header">Expenses</h2>
-               <ul className="dashboard__transaction-body">
-                  {transactionOccurrences &&
-                     transactionOccurrences.flatMap((occur, idx) => {
-                        const name = userTransactions.find(item => {
-                           return item.id === occur.transactionId
-                     }).name;
-                        return <li key={idx}>{name}: ${occur.amount}</li>
-                     })
-                  }
+               <h1 className="dashboard__transaction-header">
+                  {parseCurrentDate(selectedDay)}
+               </h1>
+               <h2 className="dashboard__category-header">Expenses</h2>
+               <ul className="dashboard__category-body">
+                  {daysTransactions &&
+                     daysTransactions.flatMap((occur, idx) => {
+                        const name = userTransactions.find((item) => {
+                           return item.id === occur.transactionId;
+                        }).name;
+                        return (
+                           <li key={idx}>
+                              {name}: ${occur.amount}
+                           </li>
+                        );
+                     })}
                </ul>
             </div>
             <div className="dashboard__transaction-category">
-               <h2 className="dashboard__transaction-header">Income</h2>
-               <ul className="dashboard__transaction-body">
+               <h2 className="dashboard__category-header">Income</h2>
+               <ul className="dashboard__category-body">
                   {/* <li>{userData.income.name} ${userData.income.amount}</li> */}
                </ul>
             </div>

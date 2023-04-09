@@ -7,9 +7,38 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import Badge from "@mui/material/Badge";
 
 function ServerDay(props) {
-   const { day, items, onClick, ...other } = props;
-   const [itemDays, setItemDays] = useState(null);
-   const [isSelected, setIsSelected] = useState(false);
+   const { day, itemDays, onClick, ...other } = props;
+   const [hasItems, setHasItems] = useState(false);
+
+   useEffect(() => {
+      if (itemDays) {
+         const getCurrentDate = (currentDate) => {
+            const date = new Date(currentDate);
+            const month = date.getMonth() + 1;
+            const day = date.getUTCDate();
+            return `${month}-${day}`;
+         };
+         const parsedDate = getCurrentDate(day.$d);
+         const hasItems = itemDays.indexOf(parsedDate) >= 0;
+         setHasItems(hasItems);
+      }
+   }, [itemDays])
+
+   return (
+      <Badge
+         className="calendar__date--event"
+         key={props.day.toString()}
+         overlap="circular"
+         badgeContent={hasItems && "🌚"}
+         showZero={false}
+      >
+         <PickersDay {...other} day={day} onClick={() => onClick(day)} />
+      </Badge>
+   );
+}
+
+function Calendar({ handleDaySelect, items, selectedDay }) {
+   const [itemDays, setItemDays] = useState(false);
 
    useEffect(() => {
       if (items) {
@@ -19,33 +48,10 @@ function ServerDay(props) {
             const day = date.getUTCDate();
             return `${month}-${day}`;
          });
-
-         const getCurrentDate = (currentDate) => {
-            const date = new Date(currentDate);
-            const month = date.getMonth() + 1;
-            const day = date.getUTCDate();
-            return `${month}-${day}`;
-         }
-         const currentDate = getCurrentDate(day.$d);
          setItemDays(daysWithItems);
-         setIsSelected(daysWithItems.indexOf(currentDate) >= 0);
       }
-   }, [day, items]);
+   }, [items, selectedDay]);
 
-   return (
-      <Badge
-         className="calendar__date--event"
-         key={props.day.toString()}
-         overlap="circular"
-         badgeContent={isSelected ? "🌚" : null}
-         showZero={false}
-      >
-         <PickersDay {...other} day={day} onClick={() => onClick(day)} />
-      </Badge>
-   );
-}
-
-function Calendar({ handleDaySelect, items }) {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <DateCalendar
@@ -57,7 +63,7 @@ function Calendar({ handleDaySelect, items }) {
                   <ServerDay
                      {...props}
                      onClick={handleDaySelect}
-                     items={items}
+                     itemDays={itemDays}
                   />
                ),
             }}
