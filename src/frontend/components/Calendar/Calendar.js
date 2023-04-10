@@ -16,7 +16,8 @@ function ServerDay(props) {
             const date = new Date(currentDate);
             const month = date.getMonth() + 1;
             const day = date.getUTCDate();
-            return `${month}-${day}`;
+            const year = date.getFullYear();
+            return `${month}-${day}-${year}`;
          };
          const parsedDate = getCurrentDate(day.$d);
          const hasItems = itemDays.indexOf(parsedDate) >= 0;
@@ -46,7 +47,8 @@ function Calendar({ handleDaySelect, items, selectedDay }) {
             const date = new Date(item.date);
             const month = date.getMonth() + 1;
             const day = date.getUTCDate();
-            return `${month}-${day}`;
+            const year = date.getFullYear();
+            return `${month}-${day}-${year}`;
          });
          setItemDays(daysWithItems);
       }

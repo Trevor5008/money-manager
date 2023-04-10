@@ -5,6 +5,7 @@ import NavBar from "../../frontend/components/NavBar/NavBar";
 import axios from "axios";
 
 export default function Transaction({ handleSwitch }) {
+   const [category, setCategory] = useState('expense');
    const [transactionTypes, setTransactionTypes] = useState(null);
    const [accounts, setAccounts] = useState(null);
    const [recurrenceOptions, setRecurrenceOptions] = useState(null);
@@ -33,13 +34,15 @@ export default function Transaction({ handleSwitch }) {
       const oneMonth = oneWeek * 4;
       const oneQuarter = oneMonth * 3;
       const oneYear = oneQuarter * 4;
+
       let difference;
-      const diffInMilliseconds = end.getTime() - start.getTime();
+      const diffInMilliseconds = 
+         end.getTime() - start.getTime();
+
       if (recurPeriod === "Daily") {
          difference = Math.floor(diffInMilliseconds / oneDay);
       } else if (recurPeriod === "Weekly") {
          difference = Math.floor(diffInMilliseconds / oneWeek);
-         console.log(difference)
       } else if (recurPeriod === "Monthly") {
          difference = Math.floor(diffInMilliseconds / oneMonth);
       } else if (recurPeriod === "Quarterly") {
@@ -83,6 +86,7 @@ export default function Transaction({ handleSwitch }) {
             accountId,
             transactionTypeId,
             name,
+            category,
             amount,
             onDate,
             iterations,
@@ -94,15 +98,47 @@ export default function Transaction({ handleSwitch }) {
             isSettled,
          })
          .then((data) => console.log(data));
-
+      router.push('/landing');
       console.log('transaction added...');
    };
+
+   const handleTypeChange = (evt) => {
+      const selection = evt.target.value;
+      setCategory(selection);
+   }
 
    return (
       <>
          <NavBar handleSwitch={handleSwitch} />
          <form className="transaction-add__form" onSubmit={handleSubmit}>
             <h1 className="transaction-add__title">Add a Transaction: </h1>
+            <label htmlFor="transactionType">
+               <input 
+                  type="radio"
+                  value="expense"
+                  checked={category === 'expense'}
+                  onChange={handleTypeChange}
+               />
+               Expense
+            </label>
+            <label htmlFor="transactionType">
+               <input 
+                  type="radio"
+                  value="income"
+                  checked={category === 'income'}
+                  onChange={handleTypeChange}
+               />
+               Income
+            </label>
+            <label htmlFor="transactionType">
+               <input 
+                  type="radio"
+                  value="transfer"
+                  checked={category === 'transfer'}
+                  onChange={handleTypeChange}
+               />
+               Transfer
+            </label>
             {transactionTypes && (
                <>
                   <label

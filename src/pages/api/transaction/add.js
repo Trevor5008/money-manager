@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
    const {
       name,
+      category,
       amount,
       onDate,
       iterations,
@@ -41,21 +42,39 @@ export default async function handler(req, res) {
    // // Create transaction occurrences based on the transaction data
    let occurrenceDate = new Date(onDate);
    const occurrenceNotes = description || "";
+   let transactionAmount = category === "expense" ? -amount : amount;
+
+   if (iterations > 1) {
+      await prisma.transactionOccurrence.create({
+         data: {
+            date: occurrenceDate,
+            amount: transactionAmount,
+            notes: occurrenceNotes,
+            isSettled,
+            transaction: {
+               connect: {
+                  id: newTransaction.id,
+               },
+            },
+         },
+      });
+   }
 
    for (let i = 1; i <= iterations; i++) {
-      // Update occurrenceDate to the next occurrence date 
+      // Update occurrenceDate to the next occurrence date
       // based on recurrence period
       if (recurrence === "Daily") {
          occurrenceDate.setDate(occurrenceDate.getDate() + 1);
       } else if (recurrence === "Weekly") {
          occurrenceDate.setDate(occurrenceDate.getDate() + 7);
       } else if (recurrence === "Monthly") {
-         occurrenceDate = new Date(occurrenceDate.getFullYear(),
-            occurrenceDate.getMonth() + 1, specificDay);
-         console.log(occurrenceDate)
-         
+         occurrenceDate = new Date(
+            occurrenceDate.getFullYear(),
+            occurrenceDate.getMonth() + 1,
+            specificDay
+         );
       } else if (recurrence === "Quarterly") {
-         occurrenceDate.setMonth(occurrenceDate.getMonth() + 3);
+         occurrenceDate.setMonth(occurrenceDate.getMonth() + 4);
       } else if (recurrence === "Yearly") {
          occurrenceDate.setFullYear(occurrenceDate.getFullYear() + 1);
       }
@@ -63,7 +82,7 @@ export default async function handler(req, res) {
       await prisma.transactionOccurrence.create({
          data: {
             date: occurrenceDate,
-            amount,
+            amount: transactionAmount,
             notes: occurrenceNotes,
             isSettled,
             transaction: {

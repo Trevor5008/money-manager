@@ -13,6 +13,8 @@ export default function Landing({ handleSwitch }) {
    const [isLoading, setLoading] = useState(false);
    const [selectedDay, setSelectedDay] = useState(new Date());
    const [daysTransactions, setDaysTransactions] = useState(null);
+   const [expenseItems, setExpenseItems] = useState(null);
+   const [incomeItems, setIncomeItems] = useState(null);
 
    useEffect(() => {
       setLoading(true);
@@ -64,11 +66,15 @@ export default function Landing({ handleSwitch }) {
                const sameDay = currentDate.getUTCDate() === date.getDate();
                const sameYear =
                   currentDate.getFullYear() === date.getFullYear();
+
                return sameMonth && sameDay && sameYear;
             });
          });
          setSelectedDay(date);
          setDaysTransactions(dailyTransactions);
+         const sortedItems = findIncomeAndExpenseItems(dailyTransactions);
+         setExpenseItems(sortedItems[0]);
+         setIncomeItems(sortedItems[1]);
          return dailyTransactions;
       }
    };
@@ -100,6 +106,18 @@ export default function Landing({ handleSwitch }) {
       return `${dayName} ${dayOfMonth}${postFix}`;
    }
 
+   const removeNegativeSign = (val) => val.slice(1);
+
+   const findIncomeAndExpenseItems = (items) => {
+      const expenseItems = items.filter(item => {
+         return item.amount[0] === '-';
+      });
+      const incomeItems = items.filter(item => {
+         return item.amount[0] !== '-';
+      })
+      return [expenseItems, incomeItems];
+   }
+
    useEffect(() => {
       if (transactionOccurrences) {
          const transactions = filterTransactions(selectedDay);
@@ -125,8 +143,24 @@ export default function Landing({ handleSwitch }) {
                </h1>
                <h2 className="dashboard__category-header">Expenses</h2>
                <ul className="dashboard__category-body">
-                  {daysTransactions &&
-                     daysTransactions.flatMap((occur, idx) => {
+                  {expenseItems &&
+                     expenseItems.flatMap((occur, idx) => {
+                        const name = userTransactions.find((item) => {
+                           return item.id === occur.transactionId;
+                        }).name;
+                        return (
+                           <li key={idx}>
+                              {name}: ${removeNegativeSign(occur.amount)}
+                           </li>
+                        );
+                     })}
+               </ul>
+            </div>
+            <div className="dashboard__transaction-category">
+               <h2 className="dashboard__category-header">Income</h2>
+               <ul className="dashboard__category-body">
+               {incomeItems &&
+                     incomeItems.flatMap((occur, idx) => {
                         const name = userTransactions.find((item) => {
                            return item.id === occur.transactionId;
                         }).name;
@@ -136,12 +170,6 @@ export default function Landing({ handleSwitch }) {
                            </li>
                         );
                      })}
-               </ul>
-            </div>
-            <div className="dashboard__transaction-category">
-               <h2 className="dashboard__category-header">Income</h2>
-               <ul className="dashboard__category-body">
-                  {/* <li>{userData.income.name} ${userData.income.amount}</li> */}
                </ul>
             </div>
          </div>
