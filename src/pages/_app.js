@@ -2,12 +2,13 @@ import { SessionProvider } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { createTheme } from "@mui/material";
 import { CssBaseline } from "@mui/material";
-import { ThemeProvider } from "@emotion/react";
+import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
 import "@/styles/globals.scss";
 import "@/styles/landing.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
+import "../frontend/components/Calendar/Calendar.scss";
 import "../pages/accounts/add.scss";
 import "../styles/accounts.scss";
 import "../pages/transaction/add.scss";
@@ -22,6 +23,26 @@ export default function App({
    const theme = createTheme({
       palette: {
          mode: colorTheme,
+         primary: {
+            main: '#436B81',
+          },
+          secondary: {
+            main: '#9A6955',
+            light: 'rgb(242, 242, 242)',
+            dark: 'blue'
+          },
+          error: {
+           main: '#d32f2f'
+          },
+          warning: {
+           main: '#ed6c02'
+          },
+          info: {
+           main: '#0288d1'
+          },
+          success: {
+           main: '#2e7d32'
+          }
       },
       typography: {},
    });

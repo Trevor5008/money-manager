@@ -4,6 +4,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
+import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp';
 import Badge from "@mui/material/Badge";
 
 function ServerDay(props) {
@@ -30,10 +31,20 @@ function ServerDay(props) {
          className="calendar__date--event"
          key={props.day.toString()}
          overlap="circular"
-         badgeContent={hasItems && "🌚"}
+         badgeContent={hasItems && 
+            <WatchLaterSharpIcon 
+               sx={{
+                  fontSize: 1
+               }}
+            />}
          showZero={false}
       >
-         <PickersDay {...other} day={day} onClick={() => onClick(day)} />
+         <PickersDay 
+            className="calendar__selection" 
+            {...other} 
+            day={day} 
+            onClick={() => onClick(day)} 
+         />
       </Badge>
    );
 }

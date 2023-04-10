@@ -154,6 +154,7 @@ export default function NavBar({ handleSwitch, selectedDay }) {
                   <Fab 
                      aria-label="add"
                      onClick={handleAdd}
+                     className="main-nav__add-btn"
                   >
                      <AddIcon />
                   </Fab>
@@ -162,7 +163,7 @@ export default function NavBar({ handleSwitch, selectedDay }) {
                   <Tooltip title="Open settings">
                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar
-                           alt="Remy Sharp"
+                           alt="profile image"
                            src={userData ? userData.image : "#"}
                         />
                      </IconButton>

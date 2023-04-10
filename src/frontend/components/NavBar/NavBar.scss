@@ -1,9 +1,24 @@
 .main-nav {
-   display: flex;
-   justify-content: space-evenly;
+   height: 16vw;
+   max-height: 6.2rem;
 
-   &__menu-icon.MuiSvgIcon-root {
-      height: 2.5rem;
-      width: 2.5rem;
+   &__menu-icon.css-i4bv87-MuiSvgIcon-root,
+   &__add-btn.css-mm42gz-MuiButtonBase-root-MuiFab-root,
+   &__add-btn.css-17w2rq0-MuiButtonBase-root-MuiFab-root,
+   & .css-1wlk0hk-MuiAvatar-root {
+      height: 8vw;
+      width: 8vw;
+      max-height: 4rem;
+      max-width: 4rem;
+   }
+
+   &__add-btn.css-mm42gz-MuiButtonBase-root-MuiFab-root,
+   &__add-btn.css-17w2rq0-MuiButtonBase-root-MuiFab-root {
+      height: 6vw;
+      width: 11vw;
+   }
+
+   & .css-1wlk0hk-MuiAvatar-root {
+      margin-left: 1rem;
    }
 }

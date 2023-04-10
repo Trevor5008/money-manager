@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import NavBar from "../frontend/components/NavBar/NavBar";
 import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
 import Calendar from "../frontend/components/Calendar/Calendar";
 import axios from "axios";
 
@@ -132,53 +131,51 @@ export default function Landing({ handleSwitch }) {
    if (!userData) return <p>No profile data</p>;
 
    return (
-      <section className="dashboard">
+      <section className="landing">
          <NavBar handleSwitch={handleSwitch} selectedDay={selectedDay} />
-         <Container className="dashboard__main">
-            <Paper className="dashboard__content">
-               <Calendar
-                  handleDaySelect={filterTransactions}
-                  items={transactionOccurrences}
-                  selectedDay={selectedDay}
-               />
-               <div className="dashboard__transactions">
-                  <div className="dashboard__transaction-category">
-                     <h1 className="dashboard__transaction-header">
-                        {parseCurrentDate(selectedDay)}
-                     </h1>
-                     <h2 className="dashboard__category-header">Expenses</h2>
-                     <ul className="dashboard__category-body">
-                        {expenseItems &&
-                           expenseItems.flatMap((occur, idx) => {
-                              const name = userTransactions.find((item) => {
-                                 return item.id === occur.transactionId;
-                              }).name;
-                              return (
-                                 <li key={idx}>
-                                    {name}: ${removeNegativeSign(occur.amount)}
-                                 </li>
-                              );
-                           })}
-                     </ul>
-                  </div>
-                  <div className="dashboard__transaction-category">
-                     <h2 className="dashboard__category-header">Income</h2>
-                     <ul className="dashboard__category-body">
-                        {incomeItems &&
-                           incomeItems.flatMap((occur, idx) => {
-                              const name = userTransactions.find((item) => {
-                                 return item.id === occur.transactionId;
-                              }).name;
-                              return (
-                                 <li key={idx}>
-                                    {name}: ${occur.amount}
-                                 </li>
-                              );
-                           })}
-                     </ul>
-                  </div>
+         <Container className="landing__main">
+            <Calendar
+               handleDaySelect={filterTransactions}
+               items={transactionOccurrences}
+               selectedDay={selectedDay}
+            />
+            <div className="landing__transactions">
+               <div className="landing__transaction-category">
+                  <h1 className="landing__transaction-header">
+                     {parseCurrentDate(selectedDay)}
+                  </h1>
+                  <h2 className="landing__category-header">Expenses</h2>
+                  <ul className="landing__category-body">
+                     {expenseItems &&
+                        expenseItems.flatMap((occur, idx) => {
+                           const name = userTransactions.find((item) => {
+                              return item.id === occur.transactionId;
+                           }).name;
+                           return (
+                              <li key={idx}>
+                                 {name}: ${removeNegativeSign(occur.amount)}
+                              </li>
+                           );
+                        })}
+                  </ul>
                </div>
-            </Paper>
+               <div className="landing__transaction-category">
+                  <h2 className="landing__category-header">Income</h2>
+                  <ul className="landing__category-body">
+                     {incomeItems &&
+                        incomeItems.flatMap((occur, idx) => {
+                           const name = userTransactions.find((item) => {
+                              return item.id === occur.transactionId;
+                           }).name;
+                           return (
+                              <li key={idx}>
+                                 {name}: ${occur.amount}
+                              </li>
+                           );
+                        })}
+                  </ul>
+               </div>
+            </div>
          </Container>
       </section>
    );

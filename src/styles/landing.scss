@@ -1,6 +1,9 @@
+.landing {
+   height: 100vh;
+   margin-bottom: 1rem;
 
-
-.icon {
-   width: 2rem;
-   height: 2rem;
+   &__main {
+      height: 100%;
+   }
 }
+
