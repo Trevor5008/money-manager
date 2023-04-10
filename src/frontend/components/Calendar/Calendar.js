@@ -23,7 +23,7 @@ function ServerDay(props) {
          const hasItems = itemDays.indexOf(parsedDate) >= 0;
          setHasItems(hasItems);
       }
-   }, [itemDays])
+   }, [itemDays]);
 
    return (
       <Badge

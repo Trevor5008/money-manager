@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import NavBar from "../frontend/components/NavBar/NavBar";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import Calendar from "../frontend/components/Calendar/Calendar";
 import axios from "axios";
 
@@ -80,43 +82,44 @@ export default function Landing({ handleSwitch }) {
    };
 
    const daysOfWeek = {
-      0: 'Sunday',
-      1: 'Monday',
-      2: 'Tuesday',
-      3: 'Wednesday',
-      4: 'Thursday',
-      5: 'Friday',
-      6: 'Saturday'
+      0: "Sunday",
+      1: "Monday",
+      2: "Tuesday",
+      3: "Wednesday",
+      4: "Thursday",
+      5: "Friday",
+      6: "Saturday",
    };
 
    const parseCurrentDate = (day) => {
-      if (!day || day.toDateString() === new Date().toDateString()) return "Today"; 
+      if (!day || day.toDateString() === new Date().toDateString())
+         return "Today";
       const dayName = daysOfWeek[day.getUTCDay()];
       const dayOfMonth = day.getUTCDate();
       const lastDigit = dayOfMonth.toString().slice(-1);
-      let postFix = 'th';
+      let postFix = "th";
 
-      if (lastDigit === '1' && (dayOfMonth < 10 || dayOfMonth > 13)) {
-         postFix = 'st';
-      } else if (lastDigit === '2' && (dayOfMonth < 10 || dayOfMonth > 13)) {
-         postFix = 'nd';
-      } else if (lastDigit === '3' && (dayOfMonth < 10 || dayOfMonth > 13)) {
-         postFix = 'rd';
-      } 
+      if (lastDigit === "1" && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = "st";
+      } else if (lastDigit === "2" && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = "nd";
+      } else if (lastDigit === "3" && (dayOfMonth < 10 || dayOfMonth > 13)) {
+         postFix = "rd";
+      }
       return `${dayName} ${dayOfMonth}${postFix}`;
-   }
+   };
 
    const removeNegativeSign = (val) => val.slice(1);
 
    const findIncomeAndExpenseItems = (items) => {
-      const expenseItems = items.filter(item => {
-         return item.amount[0] === '-';
+      const expenseItems = items.filter((item) => {
+         return item.amount[0] === "-";
       });
-      const incomeItems = items.filter(item => {
-         return item.amount[0] !== '-';
-      })
+      const incomeItems = items.filter((item) => {
+         return item.amount[0] !== "-";
+      });
       return [expenseItems, incomeItems];
-   }
+   };
 
    useEffect(() => {
       if (transactionOccurrences) {
@@ -131,48 +134,52 @@ export default function Landing({ handleSwitch }) {
    return (
       <section className="dashboard">
          <NavBar handleSwitch={handleSwitch} selectedDay={selectedDay} />
-         <Calendar
-            handleDaySelect={filterTransactions}
-            items={transactionOccurrences}
-            selectedDay={selectedDay}
-         />
-         <div className="dashboard__transactions">
-            <div className="dashboard__transaction-category">
-               <h1 className="dashboard__transaction-header">
-                  {parseCurrentDate(selectedDay)}
-               </h1>
-               <h2 className="dashboard__category-header">Expenses</h2>
-               <ul className="dashboard__category-body">
-                  {expenseItems &&
-                     expenseItems.flatMap((occur, idx) => {
-                        const name = userTransactions.find((item) => {
-                           return item.id === occur.transactionId;
-                        }).name;
-                        return (
-                           <li key={idx}>
-                              {name}: ${removeNegativeSign(occur.amount)}
-                           </li>
-                        );
-                     })}
-               </ul>
-            </div>
-            <div className="dashboard__transaction-category">
-               <h2 className="dashboard__category-header">Income</h2>
-               <ul className="dashboard__category-body">
-               {incomeItems &&
-                     incomeItems.flatMap((occur, idx) => {
-                        const name = userTransactions.find((item) => {
-                           return item.id === occur.transactionId;
-                        }).name;
-                        return (
-                           <li key={idx}>
-                              {name}: ${occur.amount}
-                           </li>
-                        );
-                     })}
-               </ul>
-            </div>
-         </div>
+         <Container className="dashboard__main">
+            <Paper className="dashboard__content">
+               <Calendar
+                  handleDaySelect={filterTransactions}
+                  items={transactionOccurrences}
+                  selectedDay={selectedDay}
+               />
+               <div className="dashboard__transactions">
+                  <div className="dashboard__transaction-category">
+                     <h1 className="dashboard__transaction-header">
+                        {parseCurrentDate(selectedDay)}
+                     </h1>
+                     <h2 className="dashboard__category-header">Expenses</h2>
+                     <ul className="dashboard__category-body">
+                        {expenseItems &&
+                           expenseItems.flatMap((occur, idx) => {
+                              const name = userTransactions.find((item) => {
+                                 return item.id === occur.transactionId;
+                              }).name;
+                              return (
+                                 <li key={idx}>
+                                    {name}: ${removeNegativeSign(occur.amount)}
+                                 </li>
+                              );
+                           })}
+                     </ul>
+                  </div>
+                  <div className="dashboard__transaction-category">
+                     <h2 className="dashboard__category-header">Income</h2>
+                     <ul className="dashboard__category-body">
+                        {incomeItems &&
+                           incomeItems.flatMap((occur, idx) => {
+                              const name = userTransactions.find((item) => {
+                                 return item.id === occur.transactionId;
+                              }).name;
+                              return (
+                                 <li key={idx}>
+                                    {name}: ${occur.amount}
+                                 </li>
+                              );
+                           })}
+                     </ul>
+                  </div>
+               </div>
+            </Paper>
+         </Container>
       </section>
    );
 }

@@ -5,7 +5,7 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import Head from "next/head";
 import "@/styles/globals.scss";
-import "@/styles/home.scss";
+import "@/styles/landing.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
 import "../pages/accounts/add.scss";
