@@ -54,7 +54,7 @@ export default function AddAccount({ handleSwitch }) {
    };
 
    return (
-      <>
+      <section className="account-add">
          <NavBar handleSwitch={handleSwitch} />
          <h1 className="account-add__title">Add an Account</h1>
          <form onSubmit={handleSubmit} className="account-add__form">
@@ -136,6 +136,6 @@ export default function AddAccount({ handleSwitch }) {
                Cancel
             </Button>
          </form>
-      </>
+      </section>
    );
 }

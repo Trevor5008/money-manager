@@ -51,6 +51,18 @@
       flex-direction: column;
       margin: 1rem;
    }
+
+   // Submit button
+   & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding: .75rem;
+   }
+
+   // Cancel button
+   & .css-1w1rijm-MuiButtonBase-root-MuiButton-root {
+      font-size: 1rem;
+   }
 }
 
 input, select {

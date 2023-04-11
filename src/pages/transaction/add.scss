@@ -93,11 +93,16 @@
          width: 50%;
       }
 
-      // Submit Button 
+      // Submit button 
       & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root,
       .css-1kqu7yd-MuiButtonBase-root-MuiButton-root {
          font-size: 1.2rem;
          margin: 1rem 0;
+      }
+
+      // Cancel button
+      & .css-1w1rijm-MuiButtonBase-root-MuiButton-root {
+         font-size: 1rem;
       }
    }
 
