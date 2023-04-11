@@ -1,8 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-#Money Manager
-###Money Manager was created for use as a personal finance management application, for use
-###either on mobile, tablet, or desktop screens.  
+# Money Manager #
+### Money Manager was created for use as a personal finance management application, for use ###
+### either on mobile, tablet, or desktop screens. ###
 
 <img src="./public/assets/images/MoneyManager.png" alt="Project Dashboard" />
 
