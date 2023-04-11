@@ -1,24 +1,56 @@
 .transaction-add {
-
+   
    &__form {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 50%;
       margin: 0 auto;
       text-align: justify;
       padding: 1rem 2rem 2rem;
-   }
 
-   &__input-group {
-      display: flex;
-      flex-direction: column;
-      margin: 1rem;
-   }
-}
+      // Labels
+      & .css-1y5l3oi-MuiFormLabel-root,
+      .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+         font-size: 1.2rem;
+      }
 
-input, select {
-   padding: .5rem;
-   border-radius: .5rem;
-   border: 1px solid gray;
+      // Focused Label 
+      & .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+      .css-1grrp8x-MuiFormLabel-root-MuiInputLabel-root,
+      .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root {
+         font-size: 1.3rem;
+      }
+
+      // Input Fields, Transaction Type, Radio Group
+      & .css-q8hpuo-MuiFormControl-root,
+      .css-1nrlq1o-MuiFormControl-root {
+         margin-bottom: 1.2rem;
+
+         // Input text and adornments
+         & .css-1pnmrwp-MuiTypography-root,
+         .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+            font-size: 1.2rem;
+         }
+      }
+
+        // Transaction Name
+      & .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+         margin-bottom: 1.5rem;
+      }
+
+      // Date Input Text
+      & .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+         font-size: 1.2rem;
+      }
+
+      // Recurring option switch
+      .css-1f2kvjf-MuiFormControlLabel-root {
+         justify-content: flex-end;
+      }
+
+      // Submit Button 
+      & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root {
+         font-size: 1.2rem;
+      }
+   }
 }

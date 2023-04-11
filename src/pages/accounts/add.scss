@@ -1,15 +1,49 @@
 .account-add {
+
    &__title {
-      margin: 2rem 0 0 20rem;
+      margin: 2rem;
+      margin-bottom: 0;
    }
+
    &__form {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 50%;
+      width: 90%;
+      max-width: 35rem;
       margin: 0 auto;
       text-align: justify;
       padding: 1rem 2rem 2rem;
+
+      & .css-ece9u5 {
+         margin-top: 1rem;
+      }
+
+      & .css-ece9u5,
+      .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+         margin-bottom: 1.5rem;
+      }
+      
+      // Input, Select, Dropdown, Date Fields
+      & .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root,
+      .css-15i03rk-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+      .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input,
+      .css-1grrp8x-MuiFormLabel-root-MuiInputLabel-root,
+      .css-1uovd85-MuiButtonBase-root-MuiMenuItem-root,
+      .css-7nr1a4-MuiInputBase-root-MuiOutlinedInput-root,
+      .css-1pnmrwp-MuiTypography-root {
+         font-size: 1.2rem;
+      }
+
+      // Starting balance inner input-field
+      & .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+         padding: 1.4rem;
+      }
+
+      // Input field notched space for span
+      & .css-yjsfm1 {
+         font-size: 1rem;
+      }
    }
 
    &__input-group {
@@ -23,4 +57,8 @@ input, select {
    padding: .5rem;
    border-radius: .5rem;
    border: 1px solid gray;
+}
+
+.MuiStack-root {
+   overflow: visible;
 }

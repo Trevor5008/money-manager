@@ -19,7 +19,6 @@ export default async function handler(req, res) {
       isSettled,
    } = req.body;
 
-   const parsedEndDate = endDate ? new Date(endDate) : null;
    const typeData = await prisma.transactionType.findFirst({
       where: { id: transactionTypeId },
       select: { type: true },
@@ -31,7 +30,7 @@ export default async function handler(req, res) {
       data: {
          name: transactionName,
          iterations,
-         end_date: parsedEndDate,
+         end_date: endDate,
          ledgerAccountId: accountId,
          transactionTypeId,
          recurrencePeriodId: recurrenceId,
@@ -41,6 +40,7 @@ export default async function handler(req, res) {
 
    // // Create transaction occurrences based on the transaction data
    let occurrenceDate = new Date(onDate);
+   console.log(occurrenceDate)
    const occurrenceNotes = description || "";
    let transactionAmount = category === "expense" ? -amount : amount;
 
@@ -68,6 +68,7 @@ export default async function handler(req, res) {
       } else if (recurrence === "Weekly") {
          occurrenceDate.setDate(occurrenceDate.getDate() + 7);
       } else if (recurrence === "Monthly") {
+         console.log(specificDay)
          occurrenceDate = new Date(
             occurrenceDate.getFullYear(),
             occurrenceDate.getMonth() + 1,
