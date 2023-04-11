@@ -88,10 +88,18 @@ export default function Accounts({ handleSwitch }) {
                         query: { id: session.data.user.id },
                      })
                   }
+                  sx={{
+                     fontSize: 12,
+                     mb: 1
+                  }}
                >
                   Add Account:
                </Button>
-               <Button onClick={() => router.push("/")}>Back to Home</Button>
+               <Button 
+                  onClick={() => router.push("/")}
+               >
+                  Back to Home
+               </Button>
             </div>
          </section>
       </>

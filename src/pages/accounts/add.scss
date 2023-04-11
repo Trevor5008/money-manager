@@ -1,8 +1,21 @@
+@use '../../styles/partials/mixins' as *;
+
 .account-add {
 
    &__title {
       margin: 2rem;
+      margin-left: 10vw;
       margin-bottom: 0;
+
+      @include mobile2 {
+         margin: 2rem 20vw 1rem;
+         font-size: 2.5rem;
+      }
+
+      @include desktop {
+         margin: 4rem 30vw 1rem;
+         font-size: 3rem;
+      }
    }
 
    &__form {
@@ -31,6 +44,8 @@
       .css-1grrp8x-MuiFormLabel-root-MuiInputLabel-root,
       .css-1uovd85-MuiButtonBase-root-MuiMenuItem-root,
       .css-7nr1a4-MuiInputBase-root-MuiOutlinedInput-root,
+      .css-163v4bi-MuiFormLabel-root-MuiInputLabel-root,
+      .css-1ky6jtx-MuiTypography-root
       .css-1pnmrwp-MuiTypography-root {
          font-size: 1.2rem;
       }
@@ -53,10 +68,16 @@
    }
 
    // Submit button
-   & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root {
+   & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root,
+   .css-1kqu7yd-MuiButtonBase-root-MuiButton-root {
       font-size: 1.2rem;
       margin-bottom: 1rem;
       padding: .75rem;
+      margin-top: 1rem;
+
+      @include desktop {
+         margin-top: 1.25rem;
+      }
    }
 
    // Cancel button

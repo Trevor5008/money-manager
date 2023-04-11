@@ -37,7 +37,7 @@
       }
 
       @include desktop {
-         font-size: 3.5vw;
+         font-size: 5.5rem;
          margin-left: 1rem;
       }
    }
@@ -59,6 +59,17 @@
       @include mobile2 {
          font-size: 1.8rem;
          margin-left: 3.5rem;
+      }
+   }
+
+   // Icons and Adornments
+   & .css-15yr02a-MuiSvgIcon-root,
+   .css-1idedao-MuiSvgIcon-root,
+   .css-i4bv87-MuiSvgIcon-root {
+
+      @include desktop {
+         width: 2.25rem;
+         height: 2.25rem;
       }
    }
 }

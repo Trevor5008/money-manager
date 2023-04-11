@@ -63,7 +63,14 @@ export default function AddAccount({ handleSwitch }) {
                className="account-add__input-container"
             >
                <FormControl fullWidth>
-                  <InputLabel id="account_types">Account Type:</InputLabel>
+                  <InputLabel 
+                     id="account_types"
+                     sx={{
+                        fontSize: 12
+                     }}
+                  >
+                     Account Type:
+                  </InputLabel>
                   <Select
                      labelId="account_types"
                      id="account_types"
@@ -92,7 +99,12 @@ export default function AddAccount({ handleSwitch }) {
                className="account-add__input-container"
             >
                <FormControl fullWidth>
-                  <InputLabel htmlFor="account_start_balance">
+                  <InputLabel 
+                     htmlFor="account_start_balance"
+                     sx={{
+                        fontSize: 12
+                     }}
+                  >
                      Starting Balance
                   </InputLabel>
                   <OutlinedInput
@@ -132,6 +144,9 @@ export default function AddAccount({ handleSwitch }) {
             <Button 
                variant="test"
                onClick={() => router.push('/')}
+               sx={{
+                  fontSize: 11
+               }}
             >
                Cancel
             </Button>
