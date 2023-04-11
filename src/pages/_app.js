@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
 import "@/styles/globals.scss";
 import "@/styles/landing.scss";
+import "@/styles/login.scss";
 import "../frontend/components/NavBar/NavBar.scss";
 import "../frontend/components/ThemeSwitch/ThemeSwitch.scss";
 import "../frontend/components/Calendar/Calendar.scss";
