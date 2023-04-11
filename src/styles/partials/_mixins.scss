@@ -1,0 +1,14 @@
+@use './variables' as *;
+
+// Breakpoints
+@mixin mobile2 {
+   @media (min-width: $mobile2) {
+      @content;
+   }
+}
+
+@mixin desktop {
+   @media (min-width: $desktopSize) {
+      @content;
+   }
+}

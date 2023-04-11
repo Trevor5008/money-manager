@@ -1,0 +1,125 @@
+generator client {
+   provider = "prisma-client-js"
+}
+
+datasource db {
+   provider = "mysql"
+   url      = env("DATABASE_URL")
+}
+
+model Account {
+   id                String  @id @default(cuid())
+   userId            String
+   type              String
+   provider          String
+   providerAccountId String
+   refresh_token     String? @db.Text
+   access_token      String? @db.Text
+   expires_at        Int?
+   token_type        String?
+   scope             String?
+   id_token          String? @db.Text
+   session_state     String?
+
+   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+   @@unique([provider, providerAccountId])
+}
+
+model Session {
+   id           String   @id @default(cuid())
+   sessionToken String   @unique
+   userId       String
+   expires      DateTime
+   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+   identifier String
+   token      String   @unique
+   expires    DateTime
+
+   @@unique([identifier, token])
+}
+
+model AccountType {
+   id             String          @id @default(cuid())
+   type           String
+   icon           String
+   ledgerAccounts LedgerAccount[]
+
+   @@map("account_type")
+}
+
+model User {
+   id             String          @id @default(cuid())
+   username       String?         @unique
+   password       String?
+   name           String?
+   email          String?         @unique
+   emailVerified  DateTime?
+   image          String?
+   accounts       Account[]
+   sessions       Session[]
+   ledgerAccounts LedgerAccount[]
+}
+
+model LedgerAccount {
+   id              String        @id @default(cuid())
+   accountTypeId   String
+   userId          String
+   name            String
+   startingBalance Decimal
+   openedDate      DateTime
+   closedDate      DateTime?
+   description     String?
+   users           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+   accountType     AccountType   @relation(fields: [accountTypeId], references: [id], onDelete: Cascade)
+   transactions    Transaction[]
+
+   @@map("ledger_account")
+}
+
+model TransactionType {
+   id           String        @id @default(cuid())
+   type         String
+   icon         String
+   transactions Transaction[]
+
+   @@map("transaction_type")
+}
+
+model RecurrencePeriod {
+   id           String        @id @default(cuid())
+   type         String
+   transactions Transaction[]
+
+   @@map("recurrence_period")
+}
+
+model Transaction {
+   id                 String           @id @default(cuid())
+   name               String?
+   iterations          Int
+   end_date          DateTime?
+   ledgerAccountId    String
+   transactionTypeId  String
+   recurrencePeriodId String?
+   notes              String?
+   ledgerAcount       LedgerAccount    @relation(fields: [ledgerAccountId], references: [id], onDelete: Cascade)
+   recurrencePeriod   RecurrencePeriod? @relation(fields: [recurrencePeriodId], references: [id], onDelete: Cascade)
+   transactionType    TransactionType  @relation(fields: [transactionTypeId], references: [id], onDelete: Cascade)
+   transactionOccurrences TransactionOccurrence[]
+}
+
+model TransactionOccurrence {
+   id                String         @id @default(cuid())
+   transactionId     String
+   amount             Decimal
+   date              DateTime
+   notes             String?
+   isSettled         Boolean
+   transaction       Transaction    @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+   @@map("transaction_occurrence")
+}

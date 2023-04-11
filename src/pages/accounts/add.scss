@@ -1,0 +1,105 @@
+@use '../../styles/partials/mixins' as *;
+
+.account-add {
+
+   &__title {
+      margin: 2rem;
+      margin-left: 10vw;
+      margin-bottom: 0;
+
+      @include mobile2 {
+         margin: 2rem 20vw 1rem;
+         font-size: 2.5rem;
+      }
+
+      @include desktop {
+         margin: 4rem 30vw 1rem;
+         font-size: 3rem;
+      }
+   }
+
+   &__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 90%;
+      max-width: 35rem;
+      margin: 0 auto;
+      text-align: justify;
+      padding: 1rem 2rem 2rem;
+
+      & .css-ece9u5 {
+         margin-top: 1rem;
+      }
+
+      & .css-ece9u5,
+      .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+         margin-bottom: 1.5rem;
+      }
+      
+      // Input, Select, Dropdown, Date Fields
+      & .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root,
+      .css-15i03rk-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+      .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input,
+      .css-1grrp8x-MuiFormLabel-root-MuiInputLabel-root,
+      .css-1uovd85-MuiButtonBase-root-MuiMenuItem-root,
+      .css-7nr1a4-MuiInputBase-root-MuiOutlinedInput-root,
+      .css-163v4bi-MuiFormLabel-root-MuiInputLabel-root,
+      .css-1ky6jtx-MuiTypography-root
+      .css-1pnmrwp-MuiTypography-root {
+         font-size: 1.2rem;
+      }
+
+      // Starting balance inner input-field
+      & .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+         padding: 1.4rem;
+      }
+
+      // Input field notched space for span
+      & .css-yjsfm1 {
+         font-size: 1rem;
+      }
+   }
+
+   &__input-group {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem;
+   }
+
+   // Submit button
+   & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root,
+   .css-1kqu7yd-MuiButtonBase-root-MuiButton-root {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding: .75rem;
+      margin-top: 1rem;
+
+      @include desktop {
+         margin-top: 1.25rem;
+      }
+   }
+
+   // Cancel button
+   & .css-1w1rijm-MuiButtonBase-root-MuiButton-root {
+      font-size: 1rem;
+   }
+}
+
+input, select {
+   padding: .5rem;
+   border-radius: .5rem;
+   border: 1px solid gray;
+}
+
+.MuiStack-root {
+   overflow: visible;
+}
+
+// Drop down menu list options
+.css-6hp17o-MuiList-root-MuiMenu-list {
+
+   & li.css-1uovd85-MuiButtonBase-root-MuiMenuItem-root {
+      font-size: 1.2rem;
+   }
+}

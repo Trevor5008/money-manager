@@ -1,0 +1,90 @@
+@use '../styles/partials/mixins' as *;
+@use '../styles/partials/variables' as *;
+
+.accounts {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 2rem;
+
+   @include desktop {
+      width: 60%;
+      align-items: center;
+      margin: 0 auto;
+   }
+
+   &__title {
+      border-bottom: 1px solid grey;
+      padding-bottom: 1rem;
+      width: 100%;
+   }
+
+   &__account {
+      display: flex;
+      width: 100%;
+      border-bottom: 1px solid grey;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+   }
+
+   &__account-name {
+      margin-left: 1.25rem;
+      font-size: 1.6rem;
+   }
+
+   &__subtitle {
+      display: flex;
+      align-items: center;
+      width: 50%;
+   }
+
+   &__account-details {
+      margin-left: 5rem;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: 25%;
+
+      @include desktop {
+         right: 40%;
+      }
+   }
+
+   // Account edit button
+   & .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+      background-color: $primary;
+      color: white;
+   }
+
+   &__btn-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+   }
+
+   &__net-container {
+      display: flex;
+      width: 100%;
+      margin: 1.5rem 0 0;
+      padding: 0 2.5rem;
+      justify-content: space-between;
+   }
+
+   // Button
+   & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root {
+      font-size: 1.2rem;
+      width: 60%;
+      padding: .75rem;
+      margin-bottom: 1rem;
+
+      @include desktop {
+         width: 25%;
+      }
+   }
+}
