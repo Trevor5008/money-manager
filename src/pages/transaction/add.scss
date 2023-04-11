@@ -58,6 +58,10 @@
          .css-1ky6jtx-MuiTypography-root,
          .css-1ea1xhh-MuiInputBase-input-MuiOutlinedInput-input {
             font-size: 1.2rem;
+
+            @include desktop {
+               font-size: 1.3rem;
+            }
          }
       }
 
@@ -114,8 +118,14 @@
       }
 
       // Cancel button
-      & .css-1w1rijm-MuiButtonBase-root-MuiButton-root {
+      & .css-1w1rijm-MuiButtonBase-root-MuiButton-root,
+      .css-13qu1ns-MuiSvgIcon-root,
+      .css-a3xx3e-MuiButtonBase-root-MuiButton-root {
          font-size: 1rem;
+
+         @include desktop {
+            font-size: 1.2rem;
+         }
       }
    }
 

@@ -6,7 +6,7 @@ import Calendar from "../frontend/components/Calendar/Calendar";
 import CachedIcon from '@mui/icons-material/Cached';
 import CheckIcon from '@mui/icons-material/Check';
 import UpcomingIcon from '@mui/icons-material/Upcoming';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 import axios from "axios";
 
 export default function Landing({ handleSwitch }) {
@@ -166,7 +166,7 @@ export default function Landing({ handleSwitch }) {
                                  {occur.isSettled ? 
                                    <CheckIcon sx={{ color: 'green' }}/>
                                    : isOverdue
-                                   ? <span><ErrorOutlineIcon sx={{ color: 'red' }}/>&nbsp;&nbsp;</span>
+                                   ? <span><ReportGmailerrorredIcon sx={{ color: 'orange' }}/>&nbsp;&nbsp;</span>
                                    : <span><UpcomingIcon />&nbsp;&nbsp;</span>
                                  }
                                  {name}: ${removeNegativeSign(occur.amount)}
@@ -194,7 +194,7 @@ export default function Landing({ handleSwitch }) {
                                  {occur.isSettled ? 
                                    <CheckIcon sx={{ color: 'green' }}/>
                                    : isOverdue
-                                   ? <span><ErrorOutlineIcon sx={{ color: 'red' }}/>&nbsp;&nbsp;</span>
+                                   ? <span><ReportGmailerrorredIcon sx={{ color: 'orange' }}/>&nbsp;&nbsp;</span>
                                    : <span><UpcomingIcon />&nbsp;&nbsp;</span>
                                  }
                                  {name}: ${removeNegativeSign(occur.amount)}

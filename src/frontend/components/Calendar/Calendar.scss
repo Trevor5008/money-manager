@@ -17,7 +17,7 @@
    }
 
    @include desktop {
-      height: fit-content;
+      height: 55vh;
       padding-bottom: 4rem;
    }
 
@@ -44,6 +44,10 @@
       @include mobile2 {
          font-size: 3.5rem;
       }
+   }
+
+   & .css-1cafy48-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
+      overflow: visible;
    }
 
    & .css-2jurxj-MuiDayCalendar-slideTransition {
