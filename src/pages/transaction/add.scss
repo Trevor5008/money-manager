@@ -1,4 +1,14 @@
 .transaction-add {
+
+   &__title {
+      margin-bottom: 1rem;
+   }
+
+   // Category Radio Group header
+   &__form .css-1y5l3oi-MuiFormLabel-root,
+   &__form .css-1n0w4sp-MuiFormLabel-root {
+      margin-bottom: 1rem;
+   }
    
    &__form {
       display: flex;
@@ -10,14 +20,18 @@
 
       // Labels
       & .css-1y5l3oi-MuiFormLabel-root,
-      .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+      .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label,
+      .css-1n0w4sp-MuiFormLabel-root,
+      .css-jzcd7z-MuiFormControlLabel-root .MuiFormControlLabel-label {
          font-size: 1.2rem;
       }
 
       // Focused Label 
       & .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
       .css-1grrp8x-MuiFormLabel-root-MuiInputLabel-root,
-      .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root {
+      .css-1opk0jd-MuiFormLabel-root-MuiInputLabel-root,
+      .css-y1ua9r-MuiFormLabel-root-MuiInputLabel-root,
+      .css-163v4bi-MuiFormLabel-root-MuiInputLabel-root {
          font-size: 1.3rem;
       }
 
@@ -28,7 +42,10 @@
 
          // Input text and adornments
          & .css-1pnmrwp-MuiTypography-root,
-         .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+         .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input,
+         .css-1opk0jd-MuiFormLabel-root-MuiInputLabel-root,
+         .css-1ky6jtx-MuiTypography-root,
+         .css-1ea1xhh-MuiInputBase-input-MuiOutlinedInput-input {
             font-size: 1.2rem;
          }
       }
@@ -38,19 +55,54 @@
          margin-bottom: 1.5rem;
       }
 
+      // Transaction Amount input field 
+      & .css-1ea1xhh-MuiInputBase-input-MuiOutlinedInput-input,
+      .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+         padding: 1.4rem;
+      }
+
+      // Transaction Date input field 
+      & .css-1xhypcz-MuiStack-root,
+      .css-1xhypcz-MuiStack-root {
+         padding-top: 0;
+         overflow: visible;
+      }
+
       // Date Input Text
-      & .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+      & .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
+      .css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input {
          font-size: 1.2rem;
       }
 
       // Recurring option switch
-      .css-1f2kvjf-MuiFormControlLabel-root {
+      & .css-1f2kvjf-MuiFormControlLabel-root,
+      .css-1a6cspn-MuiFormControlLabel-root {
          justify-content: flex-end;
       }
 
-      // Submit Button 
-      & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root {
+      // Switch labels {
+      & .css-1f2kvjf-MuiFormControlLabel-root .MuiFormControlLabel-label,
+      .css-1a6cspn-MuiFormControlLabel-root .MuiFormControlLabel-label {
          font-size: 1.2rem;
       }
+
+      // Switch button containers 
+      & .css-1f2kvjf-MuiFormControlLabel-root,
+      .css-1a6cspn-MuiFormControlLabel-root {
+         margin-bottom: 1rem;
+         width: 50%;
+      }
+
+      // Submit Button 
+      & .css-1d2jqqd-MuiButtonBase-root-MuiButton-root,
+      .css-1kqu7yd-MuiButtonBase-root-MuiButton-root {
+         font-size: 1.2rem;
+         margin: 1rem 0;
+      }
+   }
+
+   // Switch container (recurring and settled options)
+   &__switch-container.css-1oqqzyl-MuiContainer-root {
+      display: flex;
    }
 }

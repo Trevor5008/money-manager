@@ -44,7 +44,6 @@ export default function App({
            main: '#2e7d32'
           }
       },
-      typography: {},
    });
 
    useEffect(() => {

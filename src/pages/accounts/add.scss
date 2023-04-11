@@ -62,3 +62,11 @@ input, select {
 .MuiStack-root {
    overflow: visible;
 }
+
+// Drop down menu list options
+.css-6hp17o-MuiList-root-MuiMenu-list {
+
+   & li.css-1uovd85-MuiButtonBase-root-MuiMenuItem-root {
+      font-size: 1.2rem;
+   }
+}

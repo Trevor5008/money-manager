@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import NavBar from "../frontend/components/NavBar/NavBar";
 import Container from "@mui/material/Container";
 import Calendar from "../frontend/components/Calendar/Calendar";
+import CachedIcon from '@mui/icons-material/Cached';
+import CheckIcon from '@mui/icons-material/Check';
+import UpcomingIcon from '@mui/icons-material/Upcoming';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import axios from "axios";
 
 export default function Landing({ handleSwitch }) {
@@ -151,9 +155,22 @@ export default function Landing({ handleSwitch }) {
                            const name = userTransactions.find((item) => {
                               return item.id === occur.transactionId;
                            }).name;
+                           const isRecurrent = userTransactions.find((item) => {
+                              return item.id === occur.transactionId;
+                           }).iterations > 1;
+                           const isOverdue = !occur.isSettled 
+                              && new Date() > new Date(occur.date);
+                           console.log(new Date() > new Date(occur.date))
                            return (
                               <li key={idx}>
+                                 {occur.isSettled ? 
+                                   <CheckIcon sx={{ color: 'green' }}/>
+                                   : isOverdue
+                                   ? <span><ErrorOutlineIcon sx={{ color: 'red' }}/>&nbsp;&nbsp;</span>
+                                   : <span><UpcomingIcon />&nbsp;&nbsp;</span>
+                                 }
                                  {name}: ${removeNegativeSign(occur.amount)}
+                                 &nbsp;{isRecurrent && <CachedIcon/>}
                               </li>
                            );
                         })}
@@ -167,9 +184,21 @@ export default function Landing({ handleSwitch }) {
                            const name = userTransactions.find((item) => {
                               return item.id === occur.transactionId;
                            }).name;
+                           const isRecurrent = userTransactions.find((item) => {
+                              return item.id === occur.transactionId;
+                           }).iterations > 1;
+                           const isOverdue = !occur.isSettled 
+                              && new Date() > new Date(occur.date);
                            return (
                               <li key={idx}>
-                                 {name}: ${occur.amount}
+                                 {occur.isSettled ? 
+                                   <CheckIcon sx={{ color: 'green' }}/>
+                                   : isOverdue
+                                   ? <span><ErrorOutlineIcon sx={{ color: 'red' }}/>&nbsp;&nbsp;</span>
+                                   : <span><UpcomingIcon />&nbsp;&nbsp;</span>
+                                 }
+                                 {name}: ${removeNegativeSign(occur.amount)}
+                                 &nbsp;{isRecurrent && <CachedIcon/>}
                               </li>
                            );
                         })}

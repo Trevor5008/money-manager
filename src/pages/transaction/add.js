@@ -15,6 +15,7 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import FormLabel from "@mui/material/FormLabel";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import Container from "@mui/material/Container";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -121,7 +122,7 @@ export default function Transaction({ handleSwitch }) {
          <form className="transaction-add__form" onSubmit={handleSubmit}>
             <h1 className="transaction-add__title">Add a Transaction: </h1>
             <FormControl>
-               <FormLabel id="transaction-add__category">Category:</FormLabel>
+               <FormLabel className="transaction-add__category">Category:</FormLabel>
                <RadioGroup
                   row
                   aria-labelledby="category select"
@@ -150,9 +151,7 @@ export default function Transaction({ handleSwitch }) {
                className="transaction-add__input-container"
             >
                <FormControl fullWidth>
-                  <InputLabel id="transaction_accounts">
-                     Account:
-                  </InputLabel>
+                  <InputLabel id="transaction_accounts">Account:</InputLabel>
                   <Select
                      labelId="transaction_accounts"
                      id="transaction_accounts"
@@ -218,13 +217,22 @@ export default function Transaction({ handleSwitch }) {
                   />
                </DemoContainer>
             </LocalizationProvider>
-            <FormControlLabel
-               value={isRecurring}
-               control={<Switch color="primary" />}
-               label="Recurring?"
-               labelPlacement="start"
-               onClick={() => setIsRecurring(!isRecurring)}
-            />
+            <Container className="transaction-add__switch-container">
+               <FormControlLabel
+                  value={isRecurring}
+                  control={<Switch color="primary" />}
+                  label="Recurring?"
+                  labelPlacement="start"
+                  onClick={() => setIsRecurring(!isRecurring)}
+               />
+               <FormControlLabel
+                  value={isSettled}
+                  control={<Switch color="primary" />}
+                  label="Settled?"
+                  labelPlacement="start"
+                  onClick={() => setIsSettled(!isSettled)}
+               />
+            </Container>
             {isRecurring && (
                <>
                   <FormControl fullWidth>
@@ -274,20 +282,10 @@ export default function Transaction({ handleSwitch }) {
                multiline
                maxRows={4}
             />
-            <FormControlLabel
-               value={isSettled}
-               control={<Switch color="primary" />}
-               label="Settled?"
-               labelPlacement="start"
-               onClick={() => setIsSettled(!isSettled)}
-            />
             <Button variant="contained" type="submit">
                Add Transaction
             </Button>
-            <Button 
-               variant="test"
-               onClick={() => router.push('/')}
-            >
+            <Button variant="test" onClick={() => router.push("/")}>
                Cancel
             </Button>
          </form>
