@@ -6,13 +6,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 <img src="./public/assets/images/MoneyManager.png" alt="Project Dashboard" />
 
-Table of Contents
-Installation
-Usage
-Contributing
-License
-Installation
-
 shell
 Copy code
 $ git clone https://github.com/Trevor5008/MoneyManager
@@ -22,7 +15,8 @@ $ npm run start
 
 ## Usage
 ### To get started, first fill out the .env.example file with your credentials
-### Once completed, remove the '.example' extension and save the file (be sure to include .env in your .gitignore file)
+### Once completed, remove the '.example' extension and save the file 
+### (be sure to include .env in your .gitignore file)
 
 
 ### Technologies Used
