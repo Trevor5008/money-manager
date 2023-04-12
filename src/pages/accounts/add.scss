@@ -55,6 +55,11 @@
          padding: 1.4rem;
       }
 
+      // Opened Date selection input
+      & .css-1xhypcz-MuiStack-root {
+         flex-direction: column;
+      }
+
       // Input field notched space for span
       & .css-yjsfm1 {
          font-size: 1rem;
