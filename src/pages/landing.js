@@ -28,13 +28,13 @@ export default function Landing({ handleSwitch }) {
             .get(`/api/get_user/${session.data.user.id}`)
             .then((data) => {
                setUserData(data.data);
-               if (data.data.hasOwnProperty("ledgerAccounts")) {
-                  setUserAccounts(data.data.ledgerAccounts);
+               if (userData && userData.hasOwnProperty("ledgerAccounts")) {
+                  setUserAccounts(userData.ledgerAccounts);
                }
                return data.data;
             })
             .then((userData) => {
-               if (userData.ledgerAccounts[0].hasOwnProperty("transactions")) {
+               if (userData && userData.hasOwnProperty("ledgerAccounts")) {
                   const transactions = userData.ledgerAccounts.flatMap(
                      (acct) => {
                         return acct.transactions;
@@ -129,10 +129,16 @@ export default function Landing({ handleSwitch }) {
          const transactions = filterTransactions(selectedDay);
          setDaysTransactions(transactions);
       }
-   }, [transactionOccurrences]);
+   }, 
+   [
+      transactionOccurrences, 
+      userData, 
+      userAccounts, 
+      userTransactions,
+      transactionOccurrences
+   ]);
 
    if (isLoading) return <p>Loading...</p>;
-   if (!userData) return <p>No profile data</p>;
 
    return (
       <section className="landing">
@@ -160,7 +166,7 @@ export default function Landing({ handleSwitch }) {
                            }).iterations > 1;
                            const isOverdue = !occur.isSettled 
                               && new Date() > new Date(occur.date);
-                           console.log(new Date() > new Date(occur.date))
+                              
                            return (
                               <li key={idx}>
                                  {occur.isSettled ? 

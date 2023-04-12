@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
    const { 
       accountTypeId, 
-      userId, 
+      userId,
       description 
    } = req.body;
-   
+
    const newAccount = 
       await prisma.ledgerAccount.create({
          data: {
