@@ -6,12 +6,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 <img src="./public/assets/images/MoneyManager.png" alt="Project Dashboard" />
 
-shell
-Copy code
+### shell ###
+### Copy code ###
+```
 $ git clone https://github.com/Trevor5008/MoneyManager
 $ cd project
 $ npm install
-$ npm run start
+```
+### migrate and seed db ###
+```
+$ npm run migrate
+$ npm run seed
+$ npm run dev
+```
 
 ## Usage
 ### To get started, first fill out the .env.example file with your credentials
