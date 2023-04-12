@@ -29,11 +29,14 @@
          width: 50rem;
       }
 
-      // Labels
+      // Labels and Fields
       & .css-1y5l3oi-MuiFormLabel-root,
       .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label,
       .css-1n0w4sp-MuiFormLabel-root,
-      .css-jzcd7z-MuiFormControlLabel-root .MuiFormControlLabel-label {
+      .css-jzcd7z-MuiFormControlLabel-root .MuiFormControlLabel-label,
+      .css-15i03rk-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+      .css-1fpqt7j-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+      .css-87nok8-MuiInputBase-root-MuiOutlinedInput-root {
          font-size: 1.2rem;
       }
 
@@ -54,6 +57,7 @@
          // Input text and adornments
          & .css-1pnmrwp-MuiTypography-root,
          .css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input,
+         .css-3gmrnf-MuiInputBase-root-MuiOutlinedInput-root,
          .css-1opk0jd-MuiFormLabel-root-MuiInputLabel-root,
          .css-1ky6jtx-MuiTypography-root,
          .css-1ea1xhh-MuiInputBase-input-MuiOutlinedInput-input {

@@ -34,17 +34,18 @@ export default function AddAccount({ handleSwitch }) {
       const accountTypeId = accountTypes.find(
          (acct) => acct.type === accountType
       ).id;
-      const userId = router.query.id;
+
       const accountName = evt.target["account_name"].value;
       const startBalance = evt.target["start_balance"].value;
       const description = evt.target.description?.value ?? null;
       const openedDate = selectedDate.$d;
+      const userId = router.query.id;
 
       axios
          .post(`http://localhost:3000/api/add_account/${router.query.id}`, {
             accountTypeId,
-            userId,
             accountName,
+            userId,
             startBalance,
             openedDate,
             description,
