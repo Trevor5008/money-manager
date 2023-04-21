@@ -22,7 +22,7 @@ $ git clone https://github.com/Trevor5008/MoneyManager
 $ cd project
 $ npm install
 ```
-### migrate and seed db ###
+### Migrate and Seed db ###
 ```
 $ npm run migrate
 $ npm run seed
