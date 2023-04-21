@@ -31,10 +31,10 @@ $ npm run dev
 
 ### Technologies Used
 
-#### Next.js
-#### React.js
-#### Prisma ORM
-#### MySQL 
-#### NextAuth.js
-#### Material UI
-#### Axios
+#### * Next.js
+#### * React.js
+#### * Prisma ORM
+#### * MySQL 
+#### * NextAuth.js
+#### * Material UI
+#### * Axios
