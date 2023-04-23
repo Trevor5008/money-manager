@@ -68,8 +68,8 @@
          height: 3vw;
 
          @include mobile2 {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 2rem;
+            height: 2rem;
          }
       }
    }
@@ -80,7 +80,8 @@
    .css-11ncbz5-MuiButtonBase-root-MuiPickersDay-root,
    .css-sl7eos-MuiButtonBase-root-MuiPickersDay-root,
    .css-1h8jx3o-MuiButtonBase-root-MuiPickersDay-root,
-   .css-1erm036-MuiButtonBase-root-MuiPickersDay-root {
+   .css-1erm036-MuiButtonBase-root-MuiPickersDay-root,
+   .css-ee5f9h-MuiButtonBase-root-MuiPickersDay-root {
       width: 11vw;
       height: 10.6vw;
       font-size: 2.5vw;

@@ -121,6 +121,7 @@ export default function Landing({ handleSwitch }) {
       const incomeItems = items.filter((item) => {
          return item.amount[0] !== "-";
       });
+
       return [expenseItems, incomeItems];
    };
 
@@ -175,7 +176,7 @@ export default function Landing({ handleSwitch }) {
                                    ? <span><ReportGmailerrorredIcon sx={{ color: 'orange' }}/>&nbsp;&nbsp;</span>
                                    : <span><UpcomingIcon />&nbsp;&nbsp;</span>
                                  }
-                                 {name}: ${removeNegativeSign(occur.amount)}
+                                 {name}: ${Number(removeNegativeSign(occur.amount)).toFixed(2)}
                                  &nbsp;{isRecurrent && <CachedIcon/>}
                               </li>
                            );
@@ -203,7 +204,7 @@ export default function Landing({ handleSwitch }) {
                                    ? <span><ReportGmailerrorredIcon sx={{ color: 'orange' }}/>&nbsp;&nbsp;</span>
                                    : <span><UpcomingIcon />&nbsp;&nbsp;</span>
                                  }
-                                 {name}: ${removeNegativeSign(occur.amount)}
+                                 {name}: ${Number(occur.amount).toFixed(2)}
                                  &nbsp;{isRecurrent && <CachedIcon/>}
                               </li>
                            );

@@ -45,9 +45,12 @@
       .css-1uovd85-MuiButtonBase-root-MuiMenuItem-root,
       .css-7nr1a4-MuiInputBase-root-MuiOutlinedInput-root,
       .css-163v4bi-MuiFormLabel-root-MuiInputLabel-root,
+      .css-ewkxtr-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+      .css-137dd8j-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+      .css-1opk0jd-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
       .css-1ky6jtx-MuiTypography-root
       .css-1pnmrwp-MuiTypography-root {
-         font-size: 1.2rem;
+         font-size: 1.3rem;
       }
 
       // Starting balance inner input-field
@@ -104,7 +107,8 @@ input, select {
 // Drop down menu list options
 .css-6hp17o-MuiList-root-MuiMenu-list {
 
-   & li.css-1uovd85-MuiButtonBase-root-MuiMenuItem-root {
+   & li.css-1uovd85-MuiButtonBase-root-MuiMenuItem-root,
+   & li.css-sevdcf-MuiButtonBase-root-MuiMenuItem-root {
       font-size: 1.2rem;
    }
 }
