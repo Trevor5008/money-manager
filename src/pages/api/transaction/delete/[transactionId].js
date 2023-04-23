@@ -4,18 +4,18 @@ const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
    const { 
-    accountId
+    transactionId
    } = req.query;
 
-   const account = 
-      await prisma.ledgerAccount.delete({
+   const transaction = 
+      await prisma.transaction.delete({
          where: {
-            id: accountId
+            id: transactionId
          }
       });
 
       res.json({
-         success: `${account.name} has been deleted`
+         success: `${transaction.name} has been deleted`
       });
-      console.log(`${account.name} has been deleted`)
+      console.log(`${transaction.name} has been deleted`)
 }
