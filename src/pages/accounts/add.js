@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
-import NavBar from "../../frontend/components/NavBar/NavBar";
+import NavBar from "../../frontend/components/NavBar";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";

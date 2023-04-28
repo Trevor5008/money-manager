@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 
-const StyledSwitch = styled(Switch)(({ theme }) => ({
+export const ThemeSwitch = styled(Switch)(({ theme }) => ({
    width: 62,
    height: 34,
    padding: 7,
@@ -47,9 +47,3 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
      borderRadius: 20 / 2,
    },
  }));
-
- export default function ThemeSwitch({ handleSwitch }) {
-   return (
-      <StyledSwitch className="theme-switch" onClick={handleSwitch}/>
-   )
- };

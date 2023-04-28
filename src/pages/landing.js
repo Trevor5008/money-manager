@@ -1,10 +1,10 @@
 import { useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router";
-import NavBar from "../frontend/components/NavBar/NavBar"
+import NavBar from "../frontend/components/NavBar"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import Calendar from "../frontend/components/Calendar/Calendar"
+import Calendar from "../frontend/components/Calendar"
 import CachedIcon from "@mui/icons-material/Cached"
 import CheckIcon from "@mui/icons-material/Check"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
@@ -203,7 +203,7 @@ export default function Landing({
       const incomeItems = items.filter((item) => {
          return item.amount[0] !== "-"
       })
-
+      console.log(incomeItems)
       return [expenseItems, incomeItems]
    }
 
@@ -289,11 +289,12 @@ export default function Landing({
                                     sx={{
                                        width: {
                                           xs: "80%",
-                                          md: "60%",
+                                          md: "70%",
                                           justifyContent:
                                              "space-between",
                                           alignItems:
-                                             "center"
+                                             "center",
+                                          flexWrap: 'nowrap'
                                        }
                                     }}
                                  >
@@ -382,14 +383,16 @@ export default function Landing({
                               return (
                                  <Box
                                     key={idx}
+                                    display='flex'
                                     sx={{
                                        width: {
                                           xs: "80%",
-                                          md: "60%",
+                                          md: "70%",
                                           justifyContent:
                                              "space-between",
                                           alignItems:
-                                             "center"
+                                             "center",
+                                          flexWrap: 'nowrap'
                                        }
                                     }}
                                  >

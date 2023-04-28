@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Box, Button } from "@mui/material";
-import NavBar from "../../frontend/components/NavBar/NavBar";
+import NavBar from "../../frontend/components/NavBar";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
