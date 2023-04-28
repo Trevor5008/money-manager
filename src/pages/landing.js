@@ -235,7 +235,11 @@ export default function Landing({
             handleSwitch={handleSwitch}
             selectedDay={selectedDay}
          />
-         <Container className="landing__main">
+         <Container 
+            sx={{
+               p: 0
+            }}
+         >
             <Calendar
                handleDaySelect={
                   filterTransactions
