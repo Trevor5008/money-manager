@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
-import NavBar from "../frontend/components/NavBar/NavBar"
+import NavBar from "../frontend/components/NavBar"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { IconButton } from "@mui/material"
@@ -134,13 +134,19 @@ export default function Accounts({
                               }}
                            >
                               <IconButton>
-                                 <ModeEditIcon 
-                                    account={account}
+                                 <ModeEditIcon
+                                    account={
+                                       account
+                                    }
                                  />
                               </IconButton>
                               <DeleteIcon
                                  fontSize="large"
-                                 onClick={() => handleDelete(account)}
+                                 onClick={() =>
+                                    handleDelete(
+                                       account
+                                    )
+                                 }
                               />
                            </Box>
                         </div>

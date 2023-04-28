@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
-import NavBar from "../../frontend/components/NavBar/NavBar";
+import NavBar from "../../frontend/components/NavBar";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -55,13 +55,12 @@ export default function AddAccount({ handleSwitch }) {
    };
 
    return (
-      <section className="account-add">
+      <section>
          <NavBar handleSwitch={handleSwitch} />
-         <h1 className="account-add__title">Add an Account</h1>
-         <form onSubmit={handleSubmit} className="account-add__form">
+         <h1>Add an Account</h1>
+         <form onSubmit={handleSubmit}>
             <Box
                sx={{ minWidth: 120 }}
-               className="account-add__input-container"
             >
                <FormControl fullWidth>
                   <InputLabel 
@@ -97,7 +96,6 @@ export default function AddAccount({ handleSwitch }) {
             />
             <Box
                sx={{ minWidth: 120 }}
-               className="account-add__input-container"
             >
                <FormControl fullWidth>
                   <InputLabel 

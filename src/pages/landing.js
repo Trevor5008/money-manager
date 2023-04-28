@@ -2,11 +2,11 @@ import { useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { parseCurrentDate } from "../../utils/dateHelpers"
-import NavBar from "../frontend/components/NavBar/NavBar"
+import NavBar from "../frontend/components/NavBar"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import Calendar from "../frontend/components/Calendar/Calendar"
+import Calendar from "../frontend/components/Calendar"
 import TransactionItems from "@/frontend/components/TransactionItems"
 import axios from "axios"
 import {
@@ -122,7 +122,11 @@ export default function Landing({
             handleSwitch={handleSwitch}
             selectedDay={selectedDay}
          />
-         <Container className="landing__main">
+         <Container
+            sx={{
+               p: 0
+            }}
+         >
             <Calendar
                handleDaySelect={
                   filterTransactions
@@ -133,8 +137,7 @@ export default function Landing({
             <Box>
                <Typography
                   variant="h1"
-                  fontSize={35}
-                  fontWeight={700}
+                  fontWeight="bold"
                >
                   {parseCurrentDate(selectedDay)}
                </Typography>

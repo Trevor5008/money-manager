@@ -28,19 +28,17 @@ function ServerDay(props) {
 
    return (
       <Badge
-         className="calendar__date--event"
          key={props.day.toString()}
          overlap="circular"
          badgeContent={hasItems && 
             <WatchLaterSharpIcon 
                sx={{
-                  fontSize: 1
+                  fontSize: '12px'
                }}
             />}
          showZero={false}
       >
          <PickersDay 
-            className="calendar__selection" 
             {...other} 
             day={day} 
             onClick={() => onClick(day)} 
@@ -68,7 +66,6 @@ function Calendar({ handleDaySelect, items, selectedDay }) {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <DateCalendar
-            className="calendar"
             showDaysOutsideCurrentMonth
             renderLoading={() => <DayCalendarSkeleton />}
             slots={{
@@ -79,6 +76,9 @@ function Calendar({ handleDaySelect, items, selectedDay }) {
                      itemDays={itemDays}
                   />
                ),
+            }}
+            sx={{
+               mt: 10
             }}
          />
       </LocalizationProvider>

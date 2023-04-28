@@ -1,4 +1,4 @@
-import LoginButton from "@/frontend/components/LoginButton/LoginButton";
+import LoginButton from "@/frontend/components/LoginButton";
 import { Container, Link, Typography } from "@mui/material";
 
 export default function Login({ session, status }) {
