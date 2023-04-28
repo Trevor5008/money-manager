@@ -11,101 +11,113 @@ export default function TransactionItems({
    transactionData,
    handleDelete
 }) {
-   if (!categoryData || !transactionData) return null
+   if (!categoryData || !transactionData)
+      return null
 
    return (
-    <Box>
-        <Typography
-                     variant="h2"
-                     fontSize={20}
-                     fontWeight="bold"
-                  >
-                     {category}
-                  </Typography>
-      <ul>
-         {categoryData.flatMap((occur, idx) => {
-            const name = transactionData.find(
-               (item) => {
+      <Box>
+         <Typography
+            variant="h2"
+            fontWeight="bold"
+         >
+            {category}
+         </Typography>
+         <ul>
+            {categoryData.flatMap(
+               (occur, idx) => {
+                  const name =
+                     transactionData.find(
+                        (item) => {
+                           return (
+                              item.id ===
+                              occur.transactionId
+                           )
+                        }
+                     ).name
+                  const isRecurrent =
+                     transactionData.find(
+                        (item) => {
+                           return (
+                              item.id ===
+                              occur.transactionId
+                           )
+                        }
+                     ).iterations > 1
+                  const isOverdue =
+                     !occur.isSettled &&
+                     new Date() >
+                        new Date(occur.date)
+
                   return (
-                     item.id ===
-                     occur.transactionId
+                     <Box
+                        key={idx}
+                        display="flex"
+                        sx={{
+                           width: {
+                              xs: "80%",
+                              md: "60%",
+                              justifyContent:
+                                 "space-between",
+                              alignItems: "center"
+                           }
+                        }}
+                     >
+                        <Box>
+                           {occur.isSettled ? (
+                              <CheckIcon
+                                 sx={{
+                                    color: "green"
+                                 }}
+                              />
+                           ) : isOverdue ? (
+                              <Typography>
+                                 <ReportGmailerrorredIcon
+                                    sx={{
+                                       color: "orange"
+                                    }}
+                                 />
+                                 &nbsp;&nbsp;
+                              </Typography>
+                           ) : (
+                              <Typography>
+                                 <UpcomingIcon />
+                                 &nbsp;&nbsp;
+                              </Typography>
+                           )}
+                           {name}: $
+                           {occur.amount[0] ===
+                           "-"
+                              ? Number(
+                                   occur.amount.slice(
+                                      1
+                                   )
+                                ).toFixed(2)
+                              : Number(
+                                   occur.amount
+                                ).toFixed(2)}
+                           &nbsp;
+                           {isRecurrent && (
+                              <CachedIcon />
+                           )}
+                        </Box>
+                        <DeleteIcon
+                           sx={{
+                              fontSize: {
+                                 xs: "1.5rem",
+                                 sm: "2rem"
+                              }
+                           }}
+                           onClick={() =>
+                              handleDelete(
+                                 occur.transactionId
+                              )
+                           }
+                        />
+                     </Box>
                   )
                }
-            ).name
-            const isRecurrent =
-               transactionData.find((item) => {
-                  return (
-                     item.id ===
-                     occur.transactionId
-                  )
-               }).iterations > 1
-            const isOverdue =
-               !occur.isSettled &&
-               new Date() > new Date(occur.date)
-
-            return (
-               <Box
-                  key={idx}
-                  display="flex"
-                  sx={{
-                     width: {
-                        xs: "80%",
-                        md: "60%",
-                        justifyContent:
-                           "space-between",
-                        alignItems: "center"
-                     }
-                  }}
-               >
-                  <Box>
-                     {occur.isSettled ? (
-                        <CheckIcon
-                           sx={{
-                              color: "green"
-                           }}
-                        />
-                     ) : isOverdue ? (
-                        <Typography>
-                           <ReportGmailerrorredIcon
-                              sx={{
-                                 color: "orange"
-                              }}
-                           />
-                           &nbsp;&nbsp;
-                        </Typography>
-                     ) : (
-                        <Typography>
-                           <UpcomingIcon />
-                           &nbsp;&nbsp;
-                        </Typography>
-                     )}
-                     {name}: $
-                     {occur.amount[0] === '-'
-                        ? Number(occur.amount.slice(1)).toFixed(2)
-                        : Number(occur.amount).toFixed(2)                        
-                    }
-                     &nbsp;
-                     {isRecurrent && (
-                        <CachedIcon />
-                     )}
-                  </Box>
-                  <DeleteIcon
-                     sx={{
-                        fontSize: {
-                           xs: "1.5rem",
-                           sm: "2rem"
-                        }
-                     }}
-                     onClick={() =>
-                        handleDelete(
-                           occur.transactionId
-                        )
-                     }
-                  />
-               </Box>
-            )
-         })}
-      </ul>
+            )}
+         </ul>
       </Box>
    )
 }
