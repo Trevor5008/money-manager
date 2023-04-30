@@ -65,17 +65,11 @@ export default function Landing({
                            return item.transactionOccurrences
                         }
                      )
-                  if (
+                  setTransactionOccurrences(
                      dailyTransactions.length > 0
-                  ) {
-                     setTransactionOccurrences(
-                        dailyTransactions
-                     )
-                  } else {
-                     setTransactionOccurrences(
-                        null
-                     )
-                  }
+                        ? dailyTransactions
+                        : null
+                  )
                }
 
                return userTransactions
