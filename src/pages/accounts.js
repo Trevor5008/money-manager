@@ -2,13 +2,18 @@ import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import NavBar from "../frontend/components/NavBar"
+import {
+   solid,
+   regular,
+   icon
+} from "@fortawesome/fontawesome-svg-core/import.macro"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { IconButton } from "@mui/material"
 import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import DeleteIcon from "@mui/icons-material/Delete"
-import Image from "next/image"
 import Button from "@mui/material/Button"
 import axios from "axios"
 
@@ -86,16 +91,10 @@ export default function Accounts({
                            padding={3}
                         >
                            <Box className="image-wrapper">
-                              <Image
-                                 width={100}
-                                 height={100}
-                                 src={`/assets/fontawesome/images/${image}`}
-                                 alt={
-                                    image.split(
-                                       "."
-                                    )[0]
-                                 }
-                                 className="fa-inverse"
+                              <FontAwesomeIcon
+                                 icon={icon({
+                                    name: "wallet"
+                                 })}
                               />
                               <Typography variant="h2">
                                  {account.name}
