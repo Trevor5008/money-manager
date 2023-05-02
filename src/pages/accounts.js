@@ -2,11 +2,8 @@ import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import NavBar from "../frontend/components/NavBar"
-import {
-   solid,
-   regular,
-   icon
-} from "@fortawesome/fontawesome-svg-core/import.macro"
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { fas } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
@@ -16,6 +13,8 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Button from "@mui/material/Button"
 import axios from "axios"
+
+library.add(fas)
 
 export default function Accounts({
    handleSwitch
@@ -80,8 +79,7 @@ export default function Accounts({
             {userData &&
                userData.ledgerAccounts.map(
                   (account, idx) => {
-                     const image =
-                        account.accountType.icon
+                     const iconName = account.accountType.icon
                      return (
                         <Box
                            key={idx}
@@ -91,11 +89,7 @@ export default function Accounts({
                            padding={3}
                         >
                            <Box className="image-wrapper">
-                              <FontAwesomeIcon
-                                 icon={icon({
-                                    name: "wallet"
-                                 })}
-                              />
+                           <FontAwesomeIcon icon={iconName}/>
                               <Typography variant="h2">
                                  {account.name}
                               </Typography>
