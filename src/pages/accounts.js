@@ -2,14 +2,19 @@ import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import NavBar from "../frontend/components/NavBar"
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { fas } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { IconButton } from "@mui/material"
 import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import DeleteIcon from "@mui/icons-material/Delete"
-import Image from "next/image"
 import Button from "@mui/material/Button"
 import axios from "axios"
+
+library.add(fas)
 
 export default function Accounts({
    handleSwitch
@@ -31,19 +36,17 @@ export default function Accounts({
             )
             .then((data) => {
                setUserData(data.data)
+               return data.data
+            })
+            .then((data) => {
+               const accountTotals = calcTotals(
+                  data.ledgerAccounts
+               )
+               setNetAccounts(accountTotals)
                setIsLoading(false)
             })
       }
    }, [session])
-
-   useEffect(() => {
-      if (userData) {
-         const accountTotals = calcTotals(
-            userData.ledgerAccounts
-         )
-         setNetAccounts(accountTotals)
-      }
-   })
 
    const calcTotals = (acctsData) => {
       const accountTotals = acctsData.reduce(
@@ -69,60 +72,47 @@ export default function Accounts({
    return (
       <>
          <NavBar handleSwitch={handleSwitch} />
-         <section className="accounts">
-            <h1 className="accounts__title">
-               Accounts:{" "}
-            </h1>
+         <Container sx={{ mt: 10 }}>
+            <Typography variant="h1">
+               Accounts:
+            </Typography>
             {userData &&
                userData.ledgerAccounts.map(
                   (account, idx) => {
-                     const image =
-                        account.accountType.icon
+                     const iconName = account.accountType.icon
                      return (
-                        <div
+                        <Box
                            key={idx}
-                           className="accounts__account"
+                           display="flex"
+                           justifyContent="space-between"
+                           alignItems="center"
+                           padding={3}
                         >
-                           <div className="accounts__subtitle">
-                              <Image
-                                 width={100}
-                                 height={100}
-                                 className="item-icon accounts__icon"
-                                 src={`/assets/fontawesome/images/${image}`}
-                                 alt={
-                                    image.split(
-                                       "."
-                                    )[0]
-                                 }
-                              />
-                              <h2 className="accounts__account-name">
+                           <Box className="image-wrapper">
+                           <FontAwesomeIcon icon={iconName}/>
+                              <Typography variant="h2">
                                  {account.name}
-                              </h2>
-                           </div>
-                           <div className="accounts__account-details">
+                              </Typography>
+                           </Box>
+                           <Box
+                              position="absolute"
+                              right="35%"
+                           >
                               <Typography
-                                 variant="h3"
-                                 fontSize="1.4rem"
+                                 variant="h5"
                                  fontWeight="bold"
-                                 sx={{
-                                    mr: {
-                                       xs: "10vw",
-                                       sm: "5vw",
-                                       md: 0
-                                    }
-                                 }}
                               >
                                  $
                                  {
                                     account.startingBalance
                                  }
                               </Typography>
-                              <h5>
+                              <Typography variant="h5">
                                  {
                                     account.description
                                  }
-                              </h5>
-                           </div>
+                              </Typography>
+                           </Box>
                            <Box
                               sx={{
                                  display: "flex",
@@ -149,22 +139,21 @@ export default function Accounts({
                                  }
                               />
                            </Box>
-                        </div>
+                        </Box>
                      )
                   }
                )}
-            <div className="accounts__net-container">
-               <h2 className="accounts__net-label">
+            <Box>
+               <Typography variant="h2">
                   Net Accounts:
-               </h2>
-               <h2 className="accounts__net-label">
+               </Typography>
+               <Typography variant="h2">
                   ${netAccounts}
-               </h2>
-            </div>
-            <div className="accounts__btn-container">
+               </Typography>
+            </Box>
+            <Box>
                <Button
                   variant="contained"
-                  className="accounts__addBtn"
                   onClick={() =>
                      router.push({
                         pathname: "/accounts/add",
@@ -186,8 +175,8 @@ export default function Accounts({
                >
                   Back to Home
                </Button>
-            </div>
-         </section>
+            </Box>
+         </Container>
       </>
    )
 }

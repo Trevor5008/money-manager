@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+   webpack: (config) => {
       config.resolve.fallback = { fs: false };
       config.module.rules.push({
          test: /\.my-file$/i,

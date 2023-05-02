@@ -3,8 +3,12 @@ import { useEffect, useState } from "react"
 import { lightTheme, darkTheme } from "@/styles/themes"
 import { CssBaseline } from "@mui/material"
 import { ThemeProvider } from "@mui/material/styles"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import { config } from "@fortawesome/fontawesome-svg-core"
 import Head from "next/head"
 import "@/styles/globals.scss"
+
+config.autoAddCss = false
 
 export default function App({
    Component,
