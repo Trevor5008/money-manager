@@ -1,31 +1,29 @@
 import { useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
-import { parseCurrentDate } from "../../utils/dateHelpers"
-import NavBar from "../frontend/components/NavBar"
-import Typography from "@mui/material/Typography"
-import Container from "@mui/material/Container"
-import Box from "@mui/material/Box"
-import Calendar from "../frontend/components/Calendar"
-import TransactionItems from "@/frontend/components/TransactionItems"
-import axios from "axios"
+import {
+   Typography,
+   Container,
+   Box
+} from "@mui/material"
 import {
    getDailyTransactions,
    getDate,
    findIncomeAndExpenseItems
 } from "../../utils/transactionHelpers"
+import NavBar from "@/frontend/components/NavBar"
+import Calendar from "@/frontend/components/Calendar"
+import TransactionItems from "@/frontend/components/TransactionItems"
+import { parseCurrentDate } from "../../utils/dateHelpers"
+import axios from "axios"
 
 export default function Landing({
    handleSwitch
 }) {
    const session = useSession()
+   const [isLoading, setLoading] = useState(false)
    const [userTransactions, setUserTransactions] =
       useState(null)
-   const [
-      transactionOccurrences,
-      setTransactionOccurrences
-   ] = useState(null)
-   const [isLoading, setLoading] = useState(false)
    const [selectedDay, setSelectedDay] = useState(
       new Date()
    )
@@ -33,6 +31,10 @@ export default function Landing({
       useState(null)
    const [incomeItems, setIncomeItems] =
       useState(null)
+   const [
+      transactionOccurrences,
+      setTransactionOccurrences
+   ] = useState(null)
    const router = useRouter()
 
    useEffect(() => {
@@ -116,18 +118,16 @@ export default function Landing({
             handleSwitch={handleSwitch}
             selectedDay={selectedDay}
          />
-         <Container
-            sx={{
-               p: 0
-            }}
-         >
-            <Calendar
-               handleDaySelect={
-                  filterTransactions
-               }
-               items={transactionOccurrences}
-               selectedDay={selectedDay}
-            />
+         <Container sx={{ padding: 0 }}>
+            <Box>
+               <Calendar
+                  handleDaySelect={
+                     filterTransactions
+                  }
+                  items={transactionOccurrences}
+                  selectedDay={selectedDay}
+               />
+            </Box>
             <Box>
                <Typography
                   variant="h1"
