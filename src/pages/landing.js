@@ -118,7 +118,7 @@ export default function Landing({
             handleSwitch={handleSwitch}
             selectedDay={selectedDay}
          />
-         <Container sx={{ padding: 0 }}>
+         <Container sx={{ padding: { xs: 0 } }}>
             <Box>
                <Calendar
                   handleDaySelect={
