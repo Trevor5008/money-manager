@@ -30,10 +30,7 @@ const pagesObj = {
 
 const settings = ["profile", "settings", "logout"]
 
-export default function NavBar({
-   handleSwitch,
-   selectedDay
-}) {
+export default function NavBar({ handleSwitch, selectedDay }) {
    const session = useSession()
    const [anchorElNav, setAnchorElNav] =
       useState(null)
@@ -89,7 +86,7 @@ export default function NavBar({
 
    return (
       <AppBar>
-         <Container maxWidth="xl">
+         <Container>
             <Toolbar disableGutters>
                <Typography
                   variant="h6"
@@ -122,7 +119,6 @@ export default function NavBar({
                >
                   <MenuIcon
                      onClick={handleOpenNavMenu}
-                     className="main-nav__menu-icon"
                   />
                   <Menu
                      id="menu-appbar"
@@ -219,7 +215,6 @@ export default function NavBar({
                   <Fab
                      aria-label="add"
                      onClick={handleAdd}
-                     className="main-nav__add-btn"
                   >
                      <AddIcon />
                   </Fab>
