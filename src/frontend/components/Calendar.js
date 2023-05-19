@@ -37,6 +37,9 @@ function ServerDay(props) {
                }}
             />}
          showZero={false}
+         sx={{
+            // border: '1px solid red',
+         }}
       >
          <PickersDay 
             {...other} 
@@ -78,7 +81,14 @@ function Calendar({ handleDaySelect, items, selectedDay }) {
                ),
             }}
             sx={{
-               mt: 10
+               border: 1,
+               marginTop: 10,
+               marginBottom: 3,
+               width: '100%',
+               '& .MuiPickersCalendarHeader-label': {
+                  fontWeight: 'bold',
+                  fontSize: 20
+               }
             }}
          />
       </LocalizationProvider>
